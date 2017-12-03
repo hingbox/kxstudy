@@ -2,6 +2,9 @@
 import scrapy
 from study.items import MeiJuItem
 from study.items import XiaoHuaItem
+from study.items import DongGuanItem
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spider import CrawlSpider,Rule
 class MeijuSpider(scrapy.Spider):
     name="meiju"
     allowed_domains=["meijutt.com"]
@@ -30,4 +33,27 @@ class XiaoHauSpider(scrapy.Spider):
             item["name"] = name
             item["address"] = "http://www.xiaohuar.com"+address
             yield item
+
+
+
+#采集东莞阳光网
+#http://wz.sun0769.com/index.php/question/questionType?type=4&page=0
+class DongGuanSpider(CrawlSpider):
+    name = "dongguan"
+    allowed_domains = ["wz.sun0769.com"]
+    start_urls = ['http://wz.sun0769.com/index.php/question/questionType?type=4&page=0']
+    rules = (
+            Rule(LinkExtractor(allow=r'type=4&page=\d+')),
+            Rule(LinkExtractor(allow=r'/html/question/\d+/\d+.shtml'), callback='parsedongguan'),
+    )
+
+    def parsedongguan(self, response):
+        item = DongGuanItem()
+        item['title'] = response.xpath('//div[@class="pagecenter p3"]//strong/text()').extract()[0]
+        item['num'] = item['title'].split(' ')[-1].split(":")[-1]
+        item['content'] = response.xpath('//div[@class="c1 text14_2"]/text()').extract()[0]
+        item['url'] = response.url
+        yield item
+
+
 

@@ -22,3 +22,10 @@ class MeiJuItem(Item):
 class XiaoHuaItem(Item):
     address = scrapy.Field()
     name = scrapy.Field()
+
+
+class DongGuanItem(Item):
+    title = scrapy.Field()
+    num = scrapy.Field()
+    content = scrapy.Field()
+    url = scrapy.Field()

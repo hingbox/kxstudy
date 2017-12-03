@@ -6,6 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import urllib2
 import os
+import json
 class StudyPipeline(object):
      def process_item(self, item, spider):
        with open("my_meiju.txt","a")as fp:
@@ -19,3 +20,15 @@ class XiaoHuaPipeline(object):
         file_name = os.path.join(r'D:\my\down_pic',item['name']+'.jpg')
         with open(file_name,'wb') as fp:
             fp.write(res.read())
+
+class DongGuanPipeline(object):
+    def __init__(self):
+        self.filename = open('dongguan.json','w')
+
+    def prosess_item(self,item,spider):
+        text = json.dumps(dict(item),ensure_ascii=False)+",\n"
+        self.filename.write(text.encode("utt-8"))
+        return item
+
+    def close_spider(self,spider):
+        self.filename.close()
