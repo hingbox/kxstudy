@@ -43,17 +43,28 @@ class DongGuanSpider(CrawlSpider):
     allowed_domains = ["wz.sun0769.com"]
     start_urls = ['http://wz.sun0769.com/index.php/question/questionType?type=4&page=0']
     rules = (
-            Rule(LinkExtractor(allow=r'type=4&page=\d+')),
-            Rule(LinkExtractor(allow=r'/html/question/\d+/\d+.shtml'), callback='parsedongguan'),
+             Rule(LinkExtractor(allow=r'type=4&page=\d+'),follow=True),
+             Rule(LinkExtractor(allow=r'/html/question/\d+/\d+.shtml'), callback='parsedongguan'),
     )
+    #process_links="deal_links",
+    #处理当前页面url
+    def deal_links(self,links):
+        for link in links:
+            link.url = link.url.replace("?","&").replace("Type&","Type?")
+            #print link.url
+        #返回 修改完的links链接列表
+        return links
 
     def parsedongguan(self, response):
+        print(response.url)
+
         item = DongGuanItem()
         item['title'] = response.xpath('//div[@class="pagecenter p3"]//strong/text()').extract()[0]
         item['num'] = item['title'].split(' ')[-1].split(":")[-1]
         item['content'] = response.xpath('//div[@class="c1 text14_2"]/text()').extract()[0]
         item['url'] = response.url
         yield item
+
 
 
 

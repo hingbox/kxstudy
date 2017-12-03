@@ -15,9 +15,9 @@ SPIDER_MODULES = ['study.spiders']
 NEWSPIDER_MODULE = 'study.spiders'
 
 #保存日志信息文件名
-LOG_FILE ="dongguan.log"
+#LOG_FILE ="dongguan.log"
 #保存日志级别，低于或等于此等级的信息都会被保存下来
-LOG_LEVEL = "DEBUG"
+#LOG_LEVEL = "DEBUG"
 #几种错误的级别  CRITICAL(严重错误),ERROR(错误),WARNING(警告),INFO(一般信息),DEBUG(调试信息)
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'study (+http://www.yourdomain.com)'
