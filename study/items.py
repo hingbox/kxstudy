@@ -15,3 +15,10 @@ class StudyItem(scrapy.Item):
 
 class MeiJuItem(Item):
     name = scrapy.Field()
+    status = scrapy.Field()
+    place = scrapy.Field()
+
+
+class XiaoHuaItem(Item):
+    address = scrapy.Field()
+    name = scrapy.Field()
