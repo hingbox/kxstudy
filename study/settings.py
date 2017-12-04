@@ -63,7 +63,8 @@ RANDOM_UA_TYPE = 'random'##random    chrome
 DOWNLOADER_MIDDLEWARES = {
         'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
         #'study.comm.rotate_useragent.RotateUserAgentMiddleware' :400
-        'study.middlewares.MyUserAgentMiddleware': 400,
+        'study.middlewares.MyUserAgentMiddleware': 100,
+        'study.middlewares.RandomProxyMiddleware':200
     }
 
 # Enable or disable extensions
@@ -142,7 +143,11 @@ MY_USER_AGENT = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
     ]
 
-
+#随机代理
+IP_PROXIES =[
+    {"ip_port":"183.26.235.69:8118","user_passwd":""},
+    {"ip_port":"122.193.14.110:83","user_passwd":""}
+]
 
 MONGODB_SERVER = "localhost"
 MONGODB_PORT = 27017

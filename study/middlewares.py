@@ -9,6 +9,7 @@ from scrapy import signals
 import random
 from scrapy import signals
 from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware
+import base64
 
 class StudySpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -75,4 +76,34 @@ class MyUserAgentMiddleware(UserAgentMiddleware):
 
     def process_request(self, request, spider):
         agent = random.choice(self.user_agent)
+        #print "++++++++++++++++++"+agent
         request.headers['User-Agent'] = agent
+        #request.headers.setdefault('User-Agent',agent)
+
+
+
+class RandomProxyMiddleware(object):
+    '''
+    设置IP_proxy
+    '''
+
+    def __init__(self, ip_proxy):
+        self.ip_proxy = ip_proxy
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            ip_proxy=crawler.settings.get('IP_PROXIES')
+        )
+
+    def process_request(self, request, spider):
+        proxy = random.choice(self.ip_proxy)
+
+        #如果没有代理账户验证校验
+        if proxy['user_passwd'] is None:
+            request.meta['proxy'] = "http://"+proxy['ip_port']
+            print proxy['ip_port']
+        else:
+            base64_userpasswd = base64.b64encode(proxy['user_passwd'])
+            request.meta['proxy']="http://"+proxy['ip_port']
+            request.headers['Proxy-Authorization'] = 'Basic '+base64_userpasswd

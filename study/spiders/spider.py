@@ -168,6 +168,7 @@ class DouBanSpider(Spider):
     start_urls = (url,)
 
     def parse(self,response):
+        '''
         item = DouBanItem()
         movies = response.xpath('//div[@class="info"]')
         for each in movies:
@@ -178,9 +179,11 @@ class DouBanSpider(Spider):
             #频分
              item['star'] = each.xpath('.//div[@class="star"]/span[@class="rating_num"]/text()').extract()
             #介绍
-             item['quote'] = each.xpath('.//p[@class="quote"]/span/text()').extract()
+             quote = each.xpath('.//p[@class="quote"]/span/text()').extract()
+             if len(quote) !=0:
+              item['quote']= quote[0]
              yield item
-
+            '''
         if self.offset <= 225:
             self.offset += 25
             yield scrapy.Request(self.url+str(self.offset),callback=self.parse)
