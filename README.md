@@ -121,6 +121,9 @@ db.dropDatebase()
 
 #随机User-Agent
 
+#settings
+定制scrapy组件的方法
+
 
 
 

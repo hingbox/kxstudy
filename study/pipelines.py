@@ -45,9 +45,12 @@ class DouBanPipeline(object):
     def __init__(self):
         host = settings['MONGODB_HOST']
         port = settings['MONGODB_PORT']
+        #创建mongodb数据库连接
         client = pymongo.MongoClient(host=host, port=port)
         dbName = settings['MONGODB_DB']
+        #指定数据库
         tdb = client[dbName]
+        #存放数据的数据表名
         self.post = tdb[settings['MONGODB_COLLECTION']]
 
     def process_item(self, item, spider):

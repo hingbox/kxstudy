@@ -105,5 +105,5 @@ class RandomProxyMiddleware(object):
             print proxy['ip_port']
         else:
             base64_userpasswd = base64.b64encode(proxy['user_passwd'])
-            request.meta['proxy']="http://"+proxy['ip_port']
             request.headers['Proxy-Authorization'] = 'Basic '+base64_userpasswd
+            request.meta['proxy']="http://"+proxy['ip_port']
