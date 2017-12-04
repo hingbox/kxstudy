@@ -36,9 +36,9 @@ class XiaoHauSpider(scrapy.Spider):
 
 
 
-#采集东莞阳光网
+#采集东莞阳光网(CrawlSpider)
 #http://wz.sun0769.com/index.php/question/questionType?type=4&page=0
-class DongGuanSpider(CrawlSpider):
+class DongGuanCrawlSpider(CrawlSpider):
     name = "dongguan"
     allowed_domains = ["wz.sun0769.com"]
     start_urls = ['http://wz.sun0769.com/index.php/question/questionType?type=4&page=0']
@@ -59,11 +59,68 @@ class DongGuanSpider(CrawlSpider):
         print(response.url)
 
         item = DongGuanItem()
-        item['title'] = response.xpath('//div[@class="pagecenter p3"]//strong/text()').extract()[0]
+        item['title'] = response.xpath('//div[@class,"pagecenter p3"]//strong/text()').extract()[0]
+        #另一种写法
+        #item['title'] = response.xpath('//div[contains(@class="pagecenter p3")]//strong/text()').extract()[0]
         item['num'] = item['title'].split(' ')[-1].split(":")[-1]
-        item['content'] = response.xpath('//div[@class="c1 text14_2"]/text()').extract()[0]
-        item['url'] = response.url
+        # 内容，先取出图片 情况下的匹配规则，如果有内容返回所有的内容列表，如果没有内容，则返回返回空列表
+        content = response.xpath('//div[@class="contentext"]/text()').extract()
+        #如果没有内容，则返回空列表，则使用无图片情况下匹配规则
+        if len(content) == 0:
+            content = response.xpath('//div[@class="c1 text14_2"]/text()').extract()#去掉[0]得到所有的
+            item['content'] = "".join(content).strip()
+        else:
+            item['content'] = "".join(content).strip()
+            #连接
+            item['url'] = response.url
         yield item
+
+
+
+
+
+from scrapy import Spider,Request
+#采集东莞阳光网(Spider)
+class DongGuanSpider(scrapy.Spider):
+    name = "dongguanspider"
+    allowed_domains = ["wz.sun0769.com"]
+    #每页页面中所有的链接
+    url = 'http://wz.sun0769.com/index.php/question/questionType?type=4&page=0'
+    offset = 0
+    start_urls =[url + str(offset)]
+
+    def parse(self,response):
+        links = response.xpath('//div[@class="greyframe"]/table//td/a[@class="news14"]/@href').extract()
+        for link in links:
+            #获取每个页面中的链接  发送请求调用parse_item来处理
+            yield scrapy.Request(link,callback =self.parse_item)
+        #页码终止条件成立前，会一直自增offset的值，并发送新的页面请求，调用parse方法处理
+        if self.offset <= 71160:
+            self.offset += 30
+            #发送请求，放到请求队列李parse
+            yield scrapy.Request(self.url+str(self.offset),callback=self.parse)
+
+    def parse_item(self, response):
+        print(response.url)
+
+        item = DongGuanItem()
+        item['title'] = response.xpath('//div[@class="pagecenter p3"]//strong/text()').extract()[0]
+        # 另一种写法
+        # item['title'] = response.xpath('//div[contains(@class=,pagecenter p3")]//strong/text()').extract()[0]
+        item['num'] = item['title'].split(' ')[-1].split(":")[-1]
+        # 内容，先取出图片 情况下的匹配规则，如果有内容返回所有的内容列表，如果没有内容，则返回返回空列表
+        content = response.xpath('//div[@class="contentext"]/text()').extract()
+        # 如果没有内容，则返回空列表，则使用无图片情况下匹配规则
+        if len(content) == 0:
+            content = response.xpath('//div[@class="c1 text14_2"]/text()').extract()  # 去掉[0]得到所有的
+            item['content'] = "".join(content).strip()
+        else:
+            item['content'] = "".join(content).strip()
+            # 链接
+            item['url'] = response.url
+            #交给管道
+        yield item
+
 
 
 

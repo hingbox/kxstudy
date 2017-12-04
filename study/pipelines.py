@@ -26,7 +26,7 @@ class DongGuanPipeline(object):
         #下面两个都可以
         #创建一个文件
         #self.filename = codecs.open("dongguan.json","w",encoding="utf-8")
-        self.filename = open('dongguan.json','w')
+        self.filename = open('dongguanspider.json','w')
 
     def process_item(self,item,spider):
         #中文默认使用ascii码来存储，禁用后默认为unicode字符串  encode 把unicode转换为指定的编码格式

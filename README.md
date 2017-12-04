@@ -1,6 +1,6 @@
 # kxstudy
 这是一个采集数据的demo
-
+CrawlSpider
 爬取的步骤 ：
     1.需要爬取的内容 定义一个对象item ,这个对象中添加属性，存入管道文件
     2.需要爬取的url地址，建立spider进行采集，这个是主要文件，
@@ -63,6 +63,18 @@
     LOG_LEVEL = "DEBUG"
     几种错误的级别  CRITICAL(严重错误),ERROR(错误),WARNING(警告),INFO(一般信息),DEBUG(调试信息)
 
+
+#将list转换为string类型
+list= ['aaaaaaaaaa','bbbbbbbbbbb',ccccccccccccc]
+string = "".join(list)
+去掉首位的空白字符  string.strip()
+如果要替换内容 string.replace("a","b") 将字符串中的a替换为b
+去掉左边空白字符  string.lstrip()
+去掉右边空白字符  string.rstrip()
+
+
+
+#Spider
 
 
 
