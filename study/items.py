@@ -29,3 +29,10 @@ class DongGuanItem(Item):
     num = scrapy.Field()
     content = scrapy.Field()
     url = scrapy.Field()
+
+
+class DouBanItem(Item):
+    title = scrapy.Field()#标题
+    bd = scrapy.Field()#信息
+    star = scrapy.Field()#评分
+    quote = scrapy.Field()#简介

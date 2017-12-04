@@ -158,6 +158,33 @@ class RenRen2Spider(Spider):
 
 
 
+from study.items import DouBanItem
+#豆瓣网电影top250
+class DouBanSpider(Spider):
+    name = "douban"
+    allowed_domains = ["douban.com"]
+    offset = 0
+    url = "https://movie.douban.com/top250?start="+str(offset)
+    start_urls = (url,)
+
+    def parse(self,response):
+        item = DouBanItem()
+        movies = response.xpath('//div[@class="info"]')
+        for each in movies:
+            #标题
+             item['title'] = each.xpath('.//span[@class="title"][1]/text()').extract()
+            #信息
+             item['bd'] = each.xpath('.//div[@class="bd"]/p/text()').extract()
+            #频分
+             item['star'] = each.xpath('.//div[@class="star"]/span[@class="rating_num"]/text()').extract()
+            #介绍
+             item['quote'] = each.xpath('.//p[@class="quote"]/span/text()').extract()
+             yield item
+
+        if self.offset <= 225:
+            self.offset += 25
+            yield scrapy.Request(self.url+str(self.offset),callback=self.parse)
+
 
 
 

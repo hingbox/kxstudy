@@ -7,6 +7,8 @@
 import urllib2
 import os
 import json
+import pymongo
+from scrapy.conf import settings
 class StudyPipeline(object):
      def process_item(self, item, spider):
        with open("my_meiju.txt","a")as fp:
@@ -36,3 +38,19 @@ class DongGuanPipeline(object):
 
     def close_spider(self,spider):
         self.filename.close()
+
+
+
+class DouBanPipeline(object):
+    def __init__(self):
+        host = settings['MONGODB_HOST']
+        port = settings['MONGODB_PORT']
+        client = pymongo.MongoClient(host=host, port=port)
+        dbName = settings['MONGODB_DB']
+        tdb = client[dbName]
+        self.post = tdb[settings['MONGODB_COLLECTION']]
+
+    def process_item(self, item, spider):
+        movie_info = dict(item)
+        self.post.insert(movie_info)
+        return item

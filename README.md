@@ -87,8 +87,35 @@ string = "".join(list)
 5.使用IP地址池:VPN和代理IP,现在大部分网站都是根据IP来ban的
 5.使用Crawlear（专用于爬虫的代理软件）,正确配置和设置下载中间件后，项目所有的request都是通过crawlear发出
     DOWNLOADER_MIDDLEWARES={
-    scrapy_crawlera.CrawleraMiddleware'=600
+        'scrapy_crawlera.CrawleraMiddleware'=600
     }
+
+
+
+#如何设置下载中间件(Downloader Middlewares)
+在setting.py中
+
+
+
+
+#采集数据保存到本地数据库中
+#豆瓣网 电影top250
+
+
+查看当前数据库
+db
+查看所有的数据库
+show dbs
+连接到某个数据库
+use xxx
+查看当前数库下所有的表
+show collections
+查看yyy表里面的数据
+db.yyy.find()
+
+删除当前数据库
+db.dropDatebase()
+
 
 
 

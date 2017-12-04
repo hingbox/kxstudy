@@ -61,7 +61,7 @@ NEWSPIDER_MODULE = 'study.spiders'
 #}
 RANDOM_UA_TYPE = 'random'##random    chrome
 DOWNLOADER_MIDDLEWARES = {
-        'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware' : None,
+        'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
         #'study.comm.rotate_useragent.RotateUserAgentMiddleware' :400
         'study.middlewares.MyUserAgentMiddleware': 400,
     }
@@ -78,7 +78,8 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     #'study.pipelines.StudyPipeline': 100,
    # 'study.pipelines.XiaoHuaPipeline': 100,
-    'study.pipelines.DongGuanPipeline':99,
+    'study.pipelines.DongGuanPipeline': 99,
+    'study.pipelines.DouBanPipeline': 88,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -140,3 +141,10 @@ MY_USER_AGENT = [
     "Mozilla/5.0 (X11; U; Linux x86_64; zh-CN; rv:1.9.2.10) Gecko/20100922 Ubuntu/10.10 (maverick) Firefox/3.6.10",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
     ]
+
+
+
+MONGODB_SERVER = "localhost"
+MONGODB_PORT = 27017
+MONGODB_DB = "douban"
+MONGODB_COLLECTION = "movie"
