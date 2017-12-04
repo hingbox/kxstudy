@@ -74,7 +74,7 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-# 设置处理返回数据的类及执行优先级
+# 设置处理返回数据的类及执行优先级,数字越小，表示越先执行
 ITEM_PIPELINES = {
     #'study.pipelines.StudyPipeline': 100,
    # 'study.pipelines.XiaoHuaPipeline': 100,
