@@ -78,6 +78,19 @@ string = "".join(list)
 
 
 
+#通常防止爬虫被反主要有几种策略
+1.动态设置User-Agent（随机切换User-Agent，模拟不同用户浏览器信息）
+2.禁用Cookies（也就是不启用cookies middleware,不想server发送cookies，有些网站通过cookie的使用发现爬虫行为）
+    可以通过COOKIES_ENABLED控制CookiesMiddleware开启或关闭
+3.设置延迟下载(防止访问过于频繁，设置为2秒或者更高)
+4.Google Cache和Baidu Cache：如果可能的话，使用谷歌/百度等搜索引擎服务器页面缓存页面数据
+5.使用IP地址池:VPN和代理IP,现在大部分网站都是根据IP来ban的
+5.使用Crawlear（专用于爬虫的代理软件）,正确配置和设置下载中间件后，项目所有的request都是通过crawlear发出
+    DOWNLOADER_MIDDLEWARES={
+    scrapy_crawlera.CrawleraMiddleware'=600
+    }
+
+
 
 
 

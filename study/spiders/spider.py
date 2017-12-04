@@ -123,5 +123,43 @@ class DongGuanSpider(scrapy.Spider):
 
 
 
+#模拟登陆 首先发送登陆页面的get请求，获取到页面里的登录必须参数
+#然后账户密码 一起post到服务器 登录成功
+class RenRen1Spider(Spider):
+    name ="renren1"
+    allowed_domains = ["renren.com"]
+    start_urls =('http://www.renren.com/PLogin.do',)
+
+    def parse(self,response):
+        yield scrapy.FormRequest.form_response(
+            response,
+            formdata={},
+            callback=self.parse_page
+        )
+    def parse_page(self,response):
+        print "==========1=========="+response.url
+
+
+#只要是需要提供post数据，可以用这种方法
+class RenRen2Spider(Spider):
+    name = "renren1"
+    allowed_domains = ["renren.com"]
+    #start_urls = ('http://www.renren.com',)
+    def start_requests(self):
+        url = 'http://www.renren.com/PLogin.do'
+        yield scrapy.FormRequest(
+            url=url,
+            formdata={"email":"mr_mao_hacker@163.com","password":"alarmchime"},
+            callback=self.parse_page
+        )
+    def parse_page(self,response):
+        with open('hao.html','w')as filename:
+            filename.write(response.body)
+
+
+
+
+
+
 
 
