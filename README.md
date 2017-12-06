@@ -127,6 +127,18 @@ db.dropDatebase()
 
 
 
+#scrapy-redis 分布式组件
+
+master（主节点）  不负责爬取  只负责存储数据，存储指纹，将请求添加到队列中
+slaver1(子节点)  负责爬取数据 给master
+slaver2(子节点)  负责爬取数据 给master
+slaver3(子节点)  负责爬取数据 给master
+
+
+
+
+
+
 
 
 
