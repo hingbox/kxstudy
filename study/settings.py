@@ -64,7 +64,7 @@ DOWNLOADER_MIDDLEWARES = {
         'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
         #'study.comm.rotate_useragent.RotateUserAgentMiddleware' :400
         'study.middlewares.MyUserAgentMiddleware': 100,
-        'study.middlewares.RandomProxyMiddleware':200
+        #'study.middlewares.RandomProxyMiddleware':200
     }
 
 # Enable or disable extensions
@@ -79,8 +79,9 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     #'study.pipelines.StudyPipeline': 100,
    # 'study.pipelines.XiaoHuaPipeline': 100,
+    'study.pipelines.KuaiDaiLiPipeline':87,
     'study.pipelines.DongGuanPipeline': 99,
-    'study.pipelines.DouBanPipeline': 88,
+   # 'study.pipelines.DouBanPipeline': 88,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -146,10 +147,15 @@ MY_USER_AGENT = [
 #随机代理
 IP_PROXIES =[
     {"ip_port":"183.26.235.69:8118","user_passwd":""},
-    {"ip_port":"122.193.14.110:83","user_passwd":""}
+   {"ip_port":"122.193.14.110:83","user_passwd":""}
 ]
 
 MONGODB_SERVER = "localhost"
 MONGODB_PORT = 27017
 MONGODB_DB = "douban"
 MONGODB_COLLECTION = "movie"
+
+DAILI_MONGODB_SERVER = "localhost"
+DAILI_MONGODB_PORT = 27017
+DAILI_MONGODB_DB = "daili"
+DAILI_MONGODB_COLLECTION = "dailiinfo"

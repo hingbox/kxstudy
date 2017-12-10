@@ -40,6 +40,38 @@ class DongGuanPipeline(object):
         self.filename.close()
 
 
+class KuaiDaiLiPipeline(object):
+    # def __init__(self):
+    #     #下面两个都可以
+    #     #创建一个文件
+    #     #self.filename = codecs.open("dongguan.json","w",encoding="utf-8")
+    #     self.filename = open('kuaidaili.json','w')
+    #
+    # def process_item(self,item,spider):
+    #     #中文默认使用ascii码来存储，禁用后默认为unicode字符串  encode 把unicode转换为指定的编码格式
+    #     text = json.dumps(dict(item),ensure_ascii=False)+",\n"
+    #     self.filename.write(text.encode("utf-8"))
+    #     return item
+    #
+    # def close_spider(self,spider):
+    #     self.filename.close()
+     def __init__(self):
+        host = settings['DAILI_MONGODB_HOST']
+        port = settings['DAILI_MONGODB_PORT']
+        #创建mongodb数据库连接
+        client = pymongo.MongoClient(host=host, port=port)
+        dbName = settings['DAILI_MONGODB_DB']
+        #指定数据库
+        tdb = client[dbName]
+        #存放数据的数据表名
+        self.post = tdb[settings['DAILI_MONGODB_COLLECTION']]
+
+     def process_item(self, item, spider):
+        movie_info = dict(item)
+        self.post.insert(movie_info)
+        return item
+
+
 
 class DouBanPipeline(object):
     def __init__(self):
@@ -57,3 +89,6 @@ class DouBanPipeline(object):
         movie_info = dict(item)
         self.post.insert(movie_info)
         return item
+
+
+

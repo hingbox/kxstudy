@@ -36,3 +36,10 @@ class DouBanItem(Item):
     bd = scrapy.Field()#信息
     star = scrapy.Field()#评分
     quote = scrapy.Field()#简介
+
+
+class KuaiDaiLiItem(Item):
+    ip = scrapy.Field()#ip
+    port = scrapy.Field()
+    type = scrapy.Field()#类型
+    position = scrapy.Field()#位置

@@ -5,6 +5,7 @@ from study.items import XiaoHuaItem
 from study.items import DongGuanItem
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spider import CrawlSpider,Rule
+from study.items import KuaiDaiLiItem
 class MeijuSpider(scrapy.Spider):
     name="meiju"
     allowed_domains=["meijutt.com"]
@@ -188,6 +189,25 @@ class DouBanSpider(Spider):
             self.offset += 25
             yield scrapy.Request(self.url+str(self.offset),callback=self.parse)
 
+
+class KuaiDaiLiSpider(Spider):
+    name = "kuaidaili"
+    allowed_domains = ["kuaidaili.com"]
+    offset=0
+    url = "http://www.kuaidaili.com/free/inha/"+str(offset)
+    start_urls =(url,)
+
+    def parse(self, response):
+        item = KuaiDaiLiItem()
+        dailis = response.xpath('//tbody/tr')
+        for each in dailis:
+                item['ip'] = each.xpath('./td/text()').extract()[0]
+                item['port'] = each.xpath('./td/text()').extract()[1]
+                item['position'] = each.xpath('./td/text()').extract()[4]
+                yield item
+        if self.offset <= 10:
+            self.offset += 1
+            yield Request(self.url+str(self.offset),callback=self.parse)
 
 
 
