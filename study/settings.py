@@ -79,6 +79,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     #'study.pipelines.StudyPipeline': 100,
    # 'study.pipelines.XiaoHuaPipeline': 100,
+    'study.pipelines.PatentPipeline':86,
     'study.pipelines.KuaiDaiLiPipeline':87,
     'study.pipelines.DongGuanPipeline': 99,
    # 'study.pipelines.DouBanPipeline': 88,

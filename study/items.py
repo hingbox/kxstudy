@@ -43,3 +43,8 @@ class KuaiDaiLiItem(Item):
     port = scrapy.Field()
     type = scrapy.Field()#类型
     position = scrapy.Field()#位置
+
+
+
+class PatentItem(Item):
+    href = scrapy.Field()

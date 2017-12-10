@@ -6,6 +6,7 @@ from study.items import DongGuanItem
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spider import CrawlSpider,Rule
 from study.items import KuaiDaiLiItem
+from study.items import PatentItem
 class MeijuSpider(scrapy.Spider):
     name="meiju"
     allowed_domains=["meijutt.com"]
@@ -211,5 +212,16 @@ class KuaiDaiLiSpider(Spider):
 
 
 
-
-
+#采集专利信息
+class PatentSpider(Spider):
+      name = "patent"
+      allowed_domains = ["soopat.com"]
+      start_urls = ("http://www.soopat.com/IPC/Index",)
+      def parse(self,response):
+          item = PatentItem()
+          hrefs = response.xpath('//ul[@class="body"]/li/a')
+          for each in hrefs:
+              hrefs = each.xpath('./@href').extract()
+              print hrefs
+         # item['href'] = "http://www.soopat.com"+hrefs
+          #yield item
