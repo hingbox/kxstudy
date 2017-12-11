@@ -224,7 +224,7 @@ class PatentSpider(Spider):
               item['href'] = "http://www.soopat.com"+href.extract()
               #yield item
 
-            yield Request(item,callback=self.parse);
+            #yield Request(item,callback=self.parse);
 
               #hrefs = each.xpath('./@href').extract()
               #for  href in hrefs:#得到首页链接
