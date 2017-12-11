@@ -219,9 +219,15 @@ class PatentSpider(Spider):
       start_urls = ("http://www.soopat.com/IPC/Index",)
       def parse(self,response):
           item = PatentItem()
-          hrefs = response.xpath('//ul[@class="body"]/li/a')
-          for each in hrefs:
-              hrefs = each.xpath('./@href').extract()
-              print hrefs
+          hrefs = response.xpath('//ul[@class="body"]/li/a/@href')
+          for href in hrefs:
+              item['href'] = "http://www.soopat.com"+href.extract()
+              #yield item
+
+            yield Request(item,callback=self.parse);
+
+              #hrefs = each.xpath('./@href').extract()
+              #for  href in hrefs:#得到首页链接
+                 # print "http://www.soopat.com"+href
          # item['href'] = "http://www.soopat.com"+hrefs
           #yield item
