@@ -8,8 +8,8 @@ from scrapy.spider import CrawlSpider,Rule
 from study.items import KuaiDaiLiItem
 from study.items import PatentItem
 class MeijuSpider(scrapy.Spider):
-    name="meiju"
-    allowed_domains=["meijutt.com"]
+    name = "meiju"
+    allowed_domains = ["meijutt.com"]
     start_urls = ['http://www.meijutt.com/new100.html']
     def parse(self, response):
         movies = response.xpath('//ul[@class="top-list  fn-clear"]/li')
@@ -35,8 +35,6 @@ class XiaoHauSpider(scrapy.Spider):
             item["name"] = name
             item["address"] = "http://www.xiaohuar.com"+address
             yield item
-
-
 
 #采集东莞阳光网(CrawlSpider)
 #http://wz.sun0769.com/index.php/question/questionType?type=4&page=0
@@ -127,36 +125,36 @@ class DongGuanSpider(scrapy.Spider):
 
 #模拟登陆 首先发送登陆页面的get请求，获取到页面里的登录必须参数
 #然后账户密码 一起post到服务器 登录成功
-class RenRen1Spider(Spider):
-    name ="renren1"
-    allowed_domains = ["renren.com"]
-    start_urls =('http://www.renren.com/PLogin.do',)
-
-    def parse(self,response):
-        yield scrapy.FormRequest.form_response(
-            response,
-            formdata={},
-            callback=self.parse_page
-        )
-    def parse_page(self,response):
-        print "==========1=========="+response.url
+# class RenRen1Spider(Spider):
+#     name ="renren1"
+#     allowed_domains = ["renren.com"]
+#     start_urls =('http://www.renren.com/PLogin.do',)
+#
+#     def parse(self,response):
+#         yield scrapy.FormRequest.form_response(
+#             response,
+#             formdata={},
+#             callback=self.parse_page
+#         )
+#     def parse_page(self,response):
+#         print "==========1=========="+response.url
 
 
 #只要是需要提供post数据，可以用这种方法
-class RenRen2Spider(Spider):
-    name = "renren1"
-    allowed_domains = ["renren.com"]
-    #start_urls = ('http://www.renren.com',)
-    def start_requests(self):
-        url = 'http://www.renren.com/PLogin.do'
-        yield scrapy.FormRequest(
-            url=url,
-            formdata={"email":"mr_mao_hacker@163.com","password":"alarmchime"},
-            callback=self.parse_page
-        )
-    def parse_page(self,response):
-        with open('hao.html','w')as filename:
-            filename.write(response.body)
+# class RenRen2Spider(Spider):
+#     name = "renren1"
+#     allowed_domains = ["renren.com"]
+#     #start_urls = ('http://www.renren.com',)
+#     def start_requests(self):
+#         url = 'http://www.renren.com/PLogin.do'
+#         yield scrapy.FormRequest(
+#             url=url,
+#             formdata={"email":"mr_mao_hacker@163.com","password":"alarmchime"},
+#             callback=self.parse_page
+#         )
+#     def parse_page(self,response):
+#         with open('hao.html','w')as filename:
+#             filename.write(response.body)
 
 
 
@@ -222,17 +220,29 @@ class PatentSpider(Spider):
           hrefs = response.xpath('//ul[@class="body"]/li/a/@href').extract()
           for href in hrefs:
               url= "http://www.soopat.com"+href
-              yield Request(url,callback = self.parse_item_two)
-              #yield item
+              yield Request(url,cookies={"patentids":"","__utmb":"135424883","__utmc":"135424883","__utma":"135424883.1936378444.1512905255.1513086032.1513169245.3","__utmz":"135424883.1513169246.3.3.utmccn(referral)|utmcsr=soopat.com|utmcct=/Home/Result|utmcmd=referral","auth":"30a7NolswMaXCu7nBprGBHlCjGGAzDSmAHo3SU4uJnsRsmOr8%2Bmq9bO%2BMpCHyMEGi%2F3gdCRQfWm0s%2BE9B%2FZI77489ltU","suid":"251C87A11969C135","sunm":"hingbox"},callback = self.parse_item_two)
 
       #获取第二级链接
       def parse_item_two(self,response):
-          links = response.xpath('//tr[@class="IPCContentRow"]/td[@class="IPCControl"]/a/@href')
+          links = response.xpath('//tr[@class="IPCContentRow"]/td[4]/a/@href')
           for link in links:
-              print "info"+link.extract()
-              url_two ="http://www.soopat.com"+link.extract
-              yield Request(url_two,callback=self.parse_item_three)
+             # print "info"+link.extract()
+              two_url= "http://www.soopat.com"+link.extract()
+              yield Request(two_url,cookies={"patentids":"","__utmb":"135424883","__utmc":"135424883","__utma":"135424883.1936378444.1512905255.1513086032.1513169245.3","__utmz":"135424883.1513169246.3.3.utmccn(referral)|utmcsr=soopat.com|utmcct=/Home/Result|utmcmd=referral","auth":"30a7NolswMaXCu7nBprGBHlCjGGAzDSmAHo3SU4uJnsRsmOr8%2Bmq9bO%2BMpCHyMEGi%2F3gdCRQfWm0s%2BE9B%2FZI77489ltU","suid":"251C87A11969C135","sunm":"hingbox"},callback=self.parse_item_three)
 
       # 获取第三级链接
       def parse_item_three(self,response):
-          response.xpath('')
+          three_links = response.xpath('//h2[@class="PatentTypeBlock"]/a/@href')
+          for link in three_links:
+              print link.extract()
+
+
+
+class ZhengQuanHuiSpider(Spider):
+    name ="zhengquanhui"
+    allowed_domains = ["www.csrc.gov.cn"]
+    start_urls =["http://www.csrc.gov.cn/pub/newsite/zjhxwfb/"]
+    def parse(self,response):
+        links = response.xpath('//ul[@id="myul"]/li/a/@href')
+        for link in links:
+            print link.extract()
