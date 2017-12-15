@@ -40,6 +40,12 @@ import scrapy
 #中国政府网
 #住建部
 #中央纪委监察部
+class ZhongJiWeiSpider(scrapy.Spider):
+    name ="zhongjiwei"
+    allowed_domains =["www.ccdi.gov.cn"]
+    start_urls=["http://www.ccdi.gov.cn/yw/"]
+    def parse(self,response):
+        print response.xpath('//div[@id="wcmpagehtml"]/ul//li/a/@href')
 #环保总局
 #国家电力监管委员会
 #能源局
