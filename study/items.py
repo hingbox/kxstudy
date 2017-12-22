@@ -48,3 +48,9 @@ class KuaiDaiLiItem(Item):
 
 class PatentItem(Item):
     href = scrapy.Field()
+
+
+
+
+class QiuShiBaiKeItem(Item):
+    content = scrapy.Field()#内容

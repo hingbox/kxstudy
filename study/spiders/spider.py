@@ -7,6 +7,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spider import CrawlSpider,Rule
 from study.items import KuaiDaiLiItem
 from study.items import PatentItem
+from study.items import QiuShiBaiKeItem
 class MeijuSpider(scrapy.Spider):
     name = "meiju"
     allowed_domains = ["meijutt.com"]
@@ -246,3 +247,21 @@ class ZhengQuanHuiSpider(Spider):
         links = response.xpath('//ul[@id="myul"]/li/a/@href')
         for link in links:
             print link.extract()
+
+
+#嗅事百科
+class QiuShiBaiKeSpider(CrawlSpider):
+    name ="qiushibaike"
+    allowed_domains = ["www.qiushibaike.com"]
+    start_urls =["https://www.qiushibaike.com/hot/page/1/"]
+    rules = (
+        Rule(LinkExtractor(allow=r'page/\d'), follow=True,callback="parse_item"),
+    )
+    def parse_item(self,response):
+        item = QiuShiBaiKeItem()
+        contents = response.xpath('//div[@class="content"]/span/text()')
+        for content in contents:
+            item['content'] = content.extract()
+            yield item
+            # item['content']= ct.replace("\n", "")
+            # yield  item
