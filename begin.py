@@ -6,4 +6,4 @@ from scrapy import cmdline
 #cmdline.execute("scrapy crawl kuaidaili".split())
 #cmdline.execute("scrapy crawl douban".split())
 #cmdline.execute("scrapy crawl patent".split())
-cmdline.execute("scrapy crawl yingjianhui".split())
+#cmdline.execute("scrapy crawl yingjianhui".split())

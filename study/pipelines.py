@@ -140,3 +140,22 @@ class QiuShiBaiKePipeline(object):
         qiushibaike = dict(item)
         self.post.insert(qiushibaike)
         return item
+
+
+
+
+class CaiJingXinWenline(object):
+    def __init__(self):
+        #下面两个都可以
+        #创建一个文件
+        #self.filename = codecs.open("dongguan.json","w",encoding="utf-8")
+        self.filename = open('caijingxinwen.json','w')
+
+    def process_item(self,item,spider):
+        #中文默认使用ascii码来存储，禁用后默认为unicode字符串  encode 把unicode转换为指定的编码格式
+        text = json.dumps(dict(item),ensure_ascii=False)+",\n"
+        self.filename.write(text.encode("utf-8"))
+        return item
+
+    def close_spider(self,spider):
+        self.filename.close()

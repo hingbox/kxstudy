@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from scrapy import Spider,Request
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spider import CrawlSpider,Rule
 #证监会
 
 class ZhengQuanHuiSpider(Spider):
@@ -68,3 +70,20 @@ class BaoJianHui(Spider):
 #环保总局
 #国家电力监管委员会
 #能源局
+
+
+
+# #3.主流财经媒体
+# #财经国家新闻网
+# class CaiJingSpider(CrawlSpider):
+#     name = "caijingguojiaxinwenwang"
+#     allowed_domains = ["http://www.prcfe.com"]
+#     start_urls = ["http://www.prcfe.com/news/index_2.htm"]
+#     # response中提取 链接的匹配规则，得出是符合的链接
+#     pagelink =LinkExtractor(allow=('index_=\d+'))
+#     print (pagelink)
+#     # rules = (
+#     #     Rule(LinkExtractor(allow=r'_\d+'), follow=True, callback="parse_item"),
+#     # )
+#     # def parse_item(self,respone):
+#     #     print respone
