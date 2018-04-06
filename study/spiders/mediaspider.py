@@ -41,11 +41,19 @@ import scrapy
 #住建部
 #中央纪委监察部
 class ZhongJiWeiSpider(scrapy.Spider):
-    name ="zhongjiwei"
-    allowed_domains =["www.ccdi.gov.cn"]
-    start_urls=["http://www.ccdi.gov.cn/yw/"]
-    def parse(self,response):
-        print response.xpath('//div[@id="wcmpagehtml"]/ul//li/a/@href')
+    name = "zhongjiwei"
+    allowed_domains = ["www.ccdi.gov.cn"]
+    start_urls = "http://www.ccdi.gov.cn/was5/web/search?channelid=202789&page=1"
+    #offset = 0
+   # start_urls = [url+str(offset)]
+    #分页url
+    def parse(self, response):
+        links = response.xpath('//div[@id="wcmpagehtml"]/ul//li/a/@href').extract()
+        for link in links:
+            yield scrapy.Request(link, callback=self.parse_item)
+
+    def parse_item(self, response):
+        print response.xpath('//div[@class="Article_61"]//h2[@class="tit"]/text()').extract()[0]
 #环保总局
 #国家电力监管委员会
 #能源局
