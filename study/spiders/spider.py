@@ -7,6 +7,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spider import CrawlSpider,Rule
 from study.items import KuaiDaiLiItem
 from study.items import PatentItem
+from study.items import QiuShiBaiKeItem
 class MeijuSpider(scrapy.Spider):
     name = "meiju"
     allowed_domains = ["meijutt.com"]
@@ -238,11 +239,52 @@ class PatentSpider(Spider):
 
 
 
-class ZhengQuanHuiSpider(Spider):
-    name ="zhengquanhui"
-    allowed_domains = ["www.csrc.gov.cn"]
-    start_urls =["http://www.csrc.gov.cn/pub/newsite/zjhxwfb/"]
-    def parse(self,response):
-        links = response.xpath('//ul[@id="myul"]/li/a/@href')
-        for link in links:
-            print link.extract()
+# class ZhengQuanHuiSpider(Spider):
+#     name ="zhengquanhui"
+#     allowed_domains = ["www.csrc.gov.cn"]
+#     start_urls =["http://www.csrc.gov.cn/pub/newsite/zjhxwfb/"]
+#     def parse(self,response):
+#         links = response.xpath('//ul[@id="myul"]/li/a/@href')
+#         for link in links:
+#             print link.extract()
+
+
+#嗅事百科
+class QiuShiBaiKeSpider(CrawlSpider):
+    name ="qiushibaike"
+    allowed_domains = ["www.qiushibaike.com"]
+    #start_urls =["https://www.qiushibaike.com/hot/page/1/"]#24小时
+    #start_urls = ["https://www.qiushibaike.com/8hr/page/1/"]  # 热图
+    #start_urls = ["https://www.qiushibaike.com/text/page/1/"]  # 文字
+    #start_urls = ["https://www.qiushibaike.com/history/1b3aa2c7a04745250798da2df94f1707/page/1/"]  # 穿越
+    start_urls = ["https://www.qiushibaike.com/textnew/page/1/?s=5048947"]  # 新鲜
+
+
+    rules = (
+        Rule(LinkExtractor(allow=r'page/\d'), follow=True,callback="parse_item"),
+    )
+    def parse_item(self,response):
+        item = QiuShiBaiKeItem()
+        contents = response.xpath('//div[@class="content"]/span/text()')
+        for content in contents:
+            item['content'] = content.extract()
+            yield item
+            # item['content']= ct.replace("\n", "")
+            # yield  item
+
+
+
+#3.主流财经媒体
+#财经国家新闻网
+class CaiJingSpider(CrawlSpider):
+    name = "caijingguojiaxinwenwang"
+    allowed_domains = ["http://www.prcfe.com"]
+    start_urls = ["http://www.prcfe.com/news/index_2.htm"]
+    # response中提取 链接的匹配规则，得出是符合的链接
+    pagelink =LinkExtractor(allow=('index_=\d+'))
+    print ('111111111111111111111111111111111111111',pagelink)
+    # rules = (
+    #     Rule(LinkExtractor(allow=r'_\d+'), follow=True, callback="parse_item"),
+    # )
+    # def parse_item(self,respone):
+    #     print respone
