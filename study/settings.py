@@ -80,13 +80,16 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     #'study.pipelines.StudyPipeline': 100,
    # 'study.pipelines.XiaoHuaPipeline': 100,
-    'study.financepipelines.SinaFinancePipeline': 100,
-    'study.financepipelines.YiCaiFinancePipeline': 99,
-    'study.pipelines.CaiJingXinWenline':80,
-    'study.pipelines.PatentPipeline':86,
-    'study.pipelines.KuaiDaiLiPipeline':87,
-    'study.pipelines.DongGuanPipeline': 99,
-    'study.pipelines.QiuShiBaiKePipeline': 85,
+
+    'study.financepipelines.CnfolPipeline': 102,
+    #'study.financepipelines.WallStreetPipeline': 101,
+    #'study.financepipelines.SinaFinancePipeline': 100,
+    #'study.financepipelines.YiCaiFinancePipeline': 99,
+    #'study.pipelines.CaiJingXinWenline':80,
+    #'study.pipelines.PatentPipeline':86,
+    #'study.pipelines.KuaiDaiLiPipeline':87,
+    #'study.pipelines.DongGuanPipeline': 99,
+    #'study.pipelines.QiuShiBaiKePipeline': 85,
    # 'study.pipelines.DouBanPipeline': 88,
 }
 
@@ -178,6 +181,18 @@ FINANCE_MONGODB_DB = "finance"
 FINANCE_MONGODB_SINAFINANCE_COLLECTION = "sinafinace"
 FINANCE_MONGODB_YICAIFINANCE_COLLECTION = "yicaifinace"
 
+#华尔街见闻
+WALLSTREET_MONGODB_SERVER = "localhost"
+WALLSTREET_MONGODB_PORT = 27017
+WALLSTREET_MONGODB_DB = "finance"
+WALLSTREET_MONGODB_DB_COLLECTION = "wallstreet"
+
+
+#中金在线
+CONFOL_MONGODB_SERVER = "localhost"
+CONFOL_MONGODB_PORT = 27017
+CONFOL_MONGODB_DB = "finance"
+CONFOL_MONGODB_DB_COLLECTION = "confol"
 
 #mysql
 MYSQL_HOST = '127.0.0.1'
