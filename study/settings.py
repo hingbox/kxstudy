@@ -49,6 +49,9 @@ DOWNLOAD_DELAY = 1.5
 #   'Accept-Language': 'en',
 #}
 
+#也就是不启用cookies middleware，不想web server发送cookies
+#COOKIES_ENABLES=False
+
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
@@ -63,7 +66,7 @@ DOWNLOAD_DELAY = 1.5
 RANDOM_UA_TYPE = 'random'##random    chrome
 DOWNLOADER_MIDDLEWARES = {
         'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
-        #'study.comm.rotate_useragent.RotateUserAgentMiddleware' :400
+        'study.RotateUserAgentMiddleware.RotateUserAgentMiddleware': 400,
         'study.middlewares.MyUserAgentMiddleware': 100,
         #'study.middlewares.RandomProxyMiddleware':200
     }

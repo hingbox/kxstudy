@@ -111,6 +111,7 @@ class WallStreetJsonSpider(scrapy.Spider):
     allowed_domains = ["wallstreetcn.com"]
     page =1000
     #for page in range(1,3):
+    #start_urls=['https://api-prod.wallstreetcn.com/apiv1/content/articles?category=global&limit=20&cursor=1523177720,1523027497&platform=wscn-platform']
     start_urls = ['https://api-prod.wallstreetcn.com/apiv1/content/articles?platform=wscn-platform&category=us&limit='+str(page)]
     print ('orgin url',start_urls)
     def parse(self, response):
@@ -200,14 +201,14 @@ class CnfolJsonSpider(scrapy.Spider):
     name = "cnfolJson"
     allowed_domains = ["app.cnfol.com/"]
 
-    num = 10  # 每页50条
+    num = 50  # 每页50条
 
     # 10位时间戳
     timestamp = int(time.time())
     # 13位时间错
     millis = int(round(time.time() * 1000))
     start_urls = []
-    for page in range(1, 11):
+    for page in range(11, 21):
         for record in range(1,5):
             urls = 'http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=101&starttime='+str(timestamp)+'&endtime='+str(timestamp)+'&num='+str(num)+'&page='+str(page)+'&record='+str(record)+'&jsoncallback=callback&_='+str(millis)
     #start_urls = ['http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=101&starttime=1523151906&endtime=1523151906&num=2&page=1&record=1&jsoncallback=callback&=1523151906782']

@@ -112,9 +112,9 @@ class CnfolPipeline(object):
     def process_item(self, item, spider):
         self.count =self.count+1
         print('+++++insert:+++++'+str(self.count))
-        cnfol = dict(item)
-        self.post.insert(cnfol)
-        return item
+        cnfol = dict(item)# 把item转化成字典形式
+        self.post.insert(cnfol) # 向数据库插入一条记录
+        return item   # 会在控制台输出原item数据，可以选择不写
 
 
 
