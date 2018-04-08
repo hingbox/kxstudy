@@ -186,59 +186,64 @@ class CnfolSpider(scrapy.Spider):
         item['pushTime'] = response.xpath('//span[@class="meta-item__text"]/text()').extract()[0]
         return item
 
+#此处定义 是为了解决返回的是jsonp
 _jsonp_begin = r'callback('
 _jsonp_end = r')'
 #中金在线
 logger = logging.getLogger("CnfolJsonSpider")
 
-num = 2#每页100条
-
-# 10位时间戳
-timestamp =int(time.time())
-# 13位时间错
-millis = int(round(time.time() * 1000))
 class CnfolJsonSpider(scrapy.Spider):
+    #logging.basicConfig(level=logging.DEBUG,
+                       # format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')  # logging.basicConfig函数对日志的输出格式及方式做相关配置
     def __init__(self):
         self.count = 0
     name = "cnfolJson"
     allowed_domains = ["app.cnfol.com/"]
-    list = []
-    page =1
-    #for page in range(5, 6):
-    start_urls = ['http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=101&starttime='+str(timestamp)+'&endtime='+str(timestamp)+'&num='+str(num)+'&page='+str(page)+'&record='+str(page)+'&jsoncallback=callback&_='+str(millis)]
-        #list.append(url)
+
+    num = 10  # 每页50条
+
+    # 10位时间戳
+    timestamp = int(time.time())
+    # 13位时间错
+    millis = int(round(time.time() * 1000))
+    start_urls = []
+    for page in range(1, 11):
+        for record in range(1,5):
+            urls = 'http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=101&starttime='+str(timestamp)+'&endtime='+str(timestamp)+'&num='+str(num)+'&page='+str(page)+'&record='+str(record)+'&jsoncallback=callback&_='+str(millis)
+    #start_urls = ['http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=101&starttime=1523151906&endtime=1523151906&num=2&page=1&record=1&jsoncallback=callback&=1523151906782']
+            start_urls.append(urls)
     #for lis in list:
         #start_urls = [lis,]
-    print ('----orgin url------',start_urls)
+            print ('----orgin url------',start_urls)
     def parse(self, response):
         print('responseurl',response.url)
         self.count = self.count+1
         print('count',self.count)
-        for page in range(2,4):
-            init_url = 'http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=101&starttime='+str(timestamp)+'&endtime='+str(timestamp)+'&num='+str(num)+'&page='+str(page)+'&record='+str(page)+'&jsoncallback=callback&_='+str(millis)
-            jsonp_str = response.body.strip()
-            if not jsonp_str.startswith(_jsonp_begin) or \
-                    not jsonp_str.endswith(_jsonp_end):
-                raise ValueError('Invalid JSONP')
-            strJsons = json.loads(jsonp_str[len(_jsonp_begin):-len(_jsonp_end)])
-            strJsonss = strJsons['list']
-            print ('-----strJsonss'+str(self.count)+'-----',strJsonss)
-            for strJson in strJsonss:
-                print ('title',strJson['Title'],'Url',strJson['Url'],'CreatedTime',strJson['CreatedTime'],'cateName',strJson['cateName'])
-                yield scrapy.FormRequest(
-                    url=strJson['Url'],
-                    meta={
-                        'title':strJson['Title'],
-                        'url':strJson['Url'],
-                        'pushTime':strJson['CreatedTime'],
-                        'source':strJson['cateName']
-                    },
-                    dont_filter=True,
-                    method='GET',
-                    callback=self.prase_detail
-                )
-            yield scrapy.Request(init_url,callback=self.parse)
-            print('---orgin url 1--', init_url)
+        #for page in range(2,4):
+           # init_url = 'http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=101&starttime='+str(timestamp)+'&endtime='+str(timestamp)+'&num='+str(num)+'&page='+str(page)+'&record='+str(page)+'&jsoncallback=callback&_='+str(millis)
+        jsonp_str = response.body.strip()
+        if not jsonp_str.startswith(_jsonp_begin) or \
+                not jsonp_str.endswith(_jsonp_end):
+            raise ValueError('Invalid JSONP')
+        strJsons = json.loads(jsonp_str[len(_jsonp_begin):-len(_jsonp_end)])
+        strJsonss = strJsons['list']
+        print ('-----strJsonss'+str(self.count)+'-----',strJsonss)
+        for strJson in strJsonss:
+            print ('title',strJson['Title'],'Url',strJson['Url'],'CreatedTime',strJson['CreatedTime'],'cateName',strJson['cateName'])
+            yield scrapy.FormRequest(
+                url=strJson['Url'],
+                meta={
+                    'title':strJson['Title'],
+                    'url':strJson['Url'],
+                    'pushTime':strJson['CreatedTime'],
+                    'source':strJson['cateName']
+                },
+                dont_filter=True,
+                method='GET',
+                callback=self.prase_detail
+            )
+        #yield scrapy.Request(init_url,callback=self.parse)
+        #print('---执行完回调--', init_url)
 
     def prase_detail(self, response):
         print response.meta['url']
@@ -248,16 +253,16 @@ class CnfolJsonSpider(scrapy.Spider):
         item['source'] = response.meta['source']
         item['content'] = response.xpath('//div[@class="Article"]/text()').extract()
         item['pushTime'] = response.meta['pushTime']
-        print item
+        yield item
 
 
     def closed(self,response):
         self.count
         # 获取logger实例，如果参数为空则返回root logger
-        logger = logging.getLogger("AppName")
+        logger = logging.getLogger("cnfolJson")
 
         # 指定logger输出格式
-        formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s')
+        formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s -%(filename)s ')
         # 控制台日志
         console_handler = logging.StreamHandler(sys.stdout)
         console_handler.formatter = formatter  # 也可以直接给formatter赋值
@@ -273,12 +278,12 @@ class CnfolJsonSpider(scrapy.Spider):
         logger.setLevel(logging.INFO)
 
         # 输出不同级别的log
-        logger.debug('this is debug info')
-        logger.info('this is information')
-        logger.warn('this is warning message')
-        logger.error('this is error message')
-        logger.fatal('this is fatal message, it is same as logger.critical')
-        logger.critical('this is critical message')
+        # logger.debug('this is debug info')
+        # logger.info('this is information')
+        # logger.warn('this is warning message')
+        # logger.error('this is error message')
+        # logger.fatal('this is fatal message, it is same as logger.critical')
+        # logger.critical('this is critical message')
 
 
 

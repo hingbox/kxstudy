@@ -31,7 +31,7 @@ NEWSPIDER_MODULE = 'study.spiders'
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY =0.7
+DOWNLOAD_DELAY = 1.5
 #DOWNLOAD_DELAY = 0.25 # 250 ms of delay
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
@@ -200,4 +200,7 @@ MYSQL_PORT = 3306
 MYSQL_DBNAME = 'finance'
 MYSQL_USER = 'root'
 MYSQL_PASSWD = 'root'
+
+#此处定义 同时执行多个爬虫 未测试
+COMMANDS_MODULE = 'study.commands'
 

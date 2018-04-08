@@ -98,6 +98,7 @@ class WallStreetPipeline(object):
 class CnfolPipeline(object):
     #mongodb
     def __init__(self):
+        self.count = 0
         host = settings['CONFOL_MONGODB_SERVER']
         port = settings['CONFOL_MONGODB_PORT']
         #创建mongodb数据库连接
@@ -109,8 +110,10 @@ class CnfolPipeline(object):
         self.post = tdb[settings['CONFOL_MONGODB_DB_COLLECTION']]
 
     def process_item(self, item, spider):
-        wall_street = dict(item)
-        self.post.insert(wall_street)
+        self.count =self.count+1
+        print('+++++insert:+++++'+str(self.count))
+        cnfol = dict(item)
+        self.post.insert(cnfol)
         return item
 
 
