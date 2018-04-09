@@ -31,7 +31,7 @@ NEWSPIDER_MODULE = 'study.spiders'
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 1.5
 #DOWNLOAD_DELAY = 0.25 # 250 ms of delay
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
@@ -49,6 +49,9 @@ DOWNLOAD_DELAY = 3
 #   'Accept-Language': 'en',
 #}
 
+#也就是不启用cookies middleware，不想web server发送cookies
+#COOKIES_ENABLES=False
+
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
@@ -63,7 +66,7 @@ DOWNLOAD_DELAY = 3
 RANDOM_UA_TYPE = 'random'##random    chrome
 DOWNLOADER_MIDDLEWARES = {
         'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
-        #'study.comm.rotate_useragent.RotateUserAgentMiddleware' :400
+        'study.RotateUserAgentMiddleware.RotateUserAgentMiddleware': 400,
         'study.middlewares.MyUserAgentMiddleware': 100,
         #'study.middlewares.RandomProxyMiddleware':200
     }
@@ -80,11 +83,16 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     #'study.pipelines.StudyPipeline': 100,
    # 'study.pipelines.XiaoHuaPipeline': 100,
-    'study.pipelines.CaiJingXinWenline':80,
-    'study.pipelines.PatentPipeline':86,
-    'study.pipelines.KuaiDaiLiPipeline':87,
-    'study.pipelines.DongGuanPipeline': 99,
-    'study.pipelines.QiuShiBaiKePipeline': 85,
+
+    'study.financepipelines.CnfolPipeline': 102,
+    #'study.financepipelines.WallStreetPipeline': 101,
+    #'study.financepipelines.SinaFinancePipeline': 100,
+    #'study.financepipelines.YiCaiFinancePipeline': 99,
+    #'study.pipelines.CaiJingXinWenline':80,
+    #'study.pipelines.PatentPipeline':86,
+    #'study.pipelines.KuaiDaiLiPipeline':87,
+    #'study.pipelines.DongGuanPipeline': 99,
+    #'study.pipelines.QiuShiBaiKePipeline': 85,
    # 'study.pipelines.DouBanPipeline': 88,
 }
 
@@ -169,4 +177,33 @@ MONGODB_PORT_QIUSHIBAIKE = 27017
 MONGODB_DB_QIUSHIBAIKE = "qsbk"
 MONGODB_COLLECTION_QIUSHIBAIKE = "qiushibaike"
 
+#财经相关库及表
+FINANCE_MONGODB_SERVER = "localhost"
+FINANCE_MONGODB_PORT = 27017
+FINANCE_MONGODB_DB = "finance"
+FINANCE_MONGODB_SINAFINANCE_COLLECTION = "sinafinace"
+FINANCE_MONGODB_YICAIFINANCE_COLLECTION = "yicaifinace"
+
+#华尔街见闻
+WALLSTREET_MONGODB_SERVER = "localhost"
+WALLSTREET_MONGODB_PORT = 27017
+WALLSTREET_MONGODB_DB = "finance"
+WALLSTREET_MONGODB_DB_COLLECTION = "wallstreet"
+
+
+#中金在线
+CONFOL_MONGODB_SERVER = "localhost"
+CONFOL_MONGODB_PORT = 27017
+CONFOL_MONGODB_DB = "finance"
+CONFOL_MONGODB_DB_COLLECTION = "confol"
+
+#mysql
+MYSQL_HOST = '127.0.0.1'
+MYSQL_PORT = 3306
+MYSQL_DBNAME = 'finance'
+MYSQL_USER = 'root'
+MYSQL_PASSWD = 'root'
+
+#此处定义 同时执行多个爬虫 未测试
+COMMANDS_MODULE = 'study.commands'
 
