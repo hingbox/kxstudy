@@ -7,9 +7,10 @@ from scrapy import cmdline
 #cmdline.execute("scrapy crawl douban".split())
 #cmdline.execute("scrapy crawl patent".split())
 #cmdline.execute("scrapy crawl yingjianhui".split())
+cmdline.execute("scrapy crawl sinaFinance".split())
 #cmdline.execute("scrapy crawl yiCaiFinance".split())
 #cmdline.execute("scrapy crawl wallStreet".split())
 #cmdline.execute("scrapy crawl wallStreetJson".split())
 #cmdline.execute("scrapy crawl cnfol".split())
-cmdline.execute("scrapy crawl cnfolJson".split())
+#cmdline.execute("scrapy crawl cnfolJson".split())
 
