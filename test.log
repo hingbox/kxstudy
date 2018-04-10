@@ -1,0 +1,275 @@
+2018-04-07 16:46:12,678 INFO    : this is information
+2018-04-07 16:46:12,678 WARNING : this is warning message
+2018-04-07 16:46:12,680 ERROR   : this is error message
+2018-04-07 16:46:12,680 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 16:46:12,680 CRITICAL: this is critical message
+2018-04-07 16:47:36,052 INFO    : this is information
+2018-04-07 16:47:36,052 WARNING : this is warning message
+2018-04-07 16:47:36,052 ERROR   : this is error message
+2018-04-07 16:47:36,052 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 16:47:36,052 CRITICAL: this is critical message
+2018-04-07 16:48:19,730 INFO    : this is information
+2018-04-07 16:48:19,730 WARNING : this is warning message
+2018-04-07 16:48:19,733 ERROR   : this is error message
+2018-04-07 16:48:19,733 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 16:48:19,733 CRITICAL: this is critical message
+2018-04-07 16:48:59,947 INFO    : this is information
+2018-04-07 16:48:59,947 WARNING : this is warning message
+2018-04-07 16:48:59,947 ERROR   : this is error message
+2018-04-07 16:48:59,948 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 16:48:59,948 CRITICAL: this is critical message
+2018-04-07 16:49:58,651 INFO    : this is information
+2018-04-07 16:49:58,653 WARNING : this is warning message
+2018-04-07 16:49:58,654 ERROR   : this is error message
+2018-04-07 16:49:58,654 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 16:49:58,654 CRITICAL: this is critical message
+2018-04-07 16:50:46,753 INFO    : this is information
+2018-04-07 16:50:46,755 WARNING : this is warning message
+2018-04-07 16:50:46,755 ERROR   : this is error message
+2018-04-07 16:50:46,755 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 16:50:46,755 CRITICAL: this is critical message
+2018-04-07 17:01:38,325 INFO    : this is information
+2018-04-07 17:01:38,325 WARNING : this is warning message
+2018-04-07 17:01:38,326 ERROR   : this is error message
+2018-04-07 17:01:38,326 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 17:01:38,326 CRITICAL: this is critical message
+2018-04-07 17:04:27,773 INFO    : this is information
+2018-04-07 17:04:27,773 WARNING : this is warning message
+2018-04-07 17:04:27,773 ERROR   : this is error message
+2018-04-07 17:04:27,773 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 17:04:27,775 CRITICAL: this is critical message
+2018-04-07 17:05:49,755 INFO    : this is information
+2018-04-07 17:05:49,756 WARNING : this is warning message
+2018-04-07 17:05:49,756 ERROR   : this is error message
+2018-04-07 17:05:49,756 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 17:05:49,756 CRITICAL: this is critical message
+2018-04-07 17:13:17,165 INFO    : this is information
+2018-04-07 17:13:17,167 WARNING : this is warning message
+2018-04-07 17:13:17,167 ERROR   : this is error message
+2018-04-07 17:13:17,167 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 17:13:17,167 CRITICAL: this is critical message
+2018-04-07 17:17:52,792 INFO    : this is information
+2018-04-07 17:17:52,792 WARNING : this is warning message
+2018-04-07 17:17:52,793 ERROR   : this is error message
+2018-04-07 17:17:52,795 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 17:17:52,796 CRITICAL: this is critical message
+2018-04-07 17:19:43,278 INFO    : this is information
+2018-04-07 17:19:43,278 WARNING : this is warning message
+2018-04-07 17:19:43,279 ERROR   : this is error message
+2018-04-07 17:19:43,279 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 17:19:43,279 CRITICAL: this is critical message
+2018-04-07 17:22:19,325 INFO    : this is information
+2018-04-07 17:22:19,325 WARNING : this is warning message
+2018-04-07 17:22:19,325 ERROR   : this is error message
+2018-04-07 17:22:19,325 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 17:22:19,325 CRITICAL: this is critical message
+2018-04-07 17:40:17,246 INFO    : this is information
+2018-04-07 17:40:17,246 WARNING : this is warning message
+2018-04-07 17:40:17,246 ERROR   : this is error message
+2018-04-07 17:40:17,246 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 17:40:17,246 CRITICAL: this is critical message
+2018-04-07 17:43:09,671 INFO    : this is information
+2018-04-07 17:43:09,671 WARNING : this is warning message
+2018-04-07 17:43:09,673 ERROR   : this is error message
+2018-04-07 17:43:09,673 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 17:43:09,673 CRITICAL: this is critical message
+2018-04-07 17:53:26,704 INFO    : this is information
+2018-04-07 17:53:26,704 WARNING : this is warning message
+2018-04-07 17:53:26,704 ERROR   : this is error message
+2018-04-07 17:53:26,706 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 17:53:26,706 CRITICAL: this is critical message
+2018-04-07 18:01:59,934 INFO    : this is information
+2018-04-07 18:01:59,934 WARNING : this is warning message
+2018-04-07 18:01:59,934 ERROR   : this is error message
+2018-04-07 18:01:59,934 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:01:59,934 CRITICAL: this is critical message
+2018-04-07 18:03:18,558 INFO    : this is information
+2018-04-07 18:03:18,559 WARNING : this is warning message
+2018-04-07 18:03:18,559 ERROR   : this is error message
+2018-04-07 18:03:18,559 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:03:18,561 CRITICAL: this is critical message
+2018-04-07 18:05:46,803 INFO    : this is information
+2018-04-07 18:05:46,803 WARNING : this is warning message
+2018-04-07 18:05:46,805 ERROR   : this is error message
+2018-04-07 18:05:46,805 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:05:46,805 CRITICAL: this is critical message
+2018-04-07 18:24:31,059 INFO    : this is information
+2018-04-07 18:24:31,059 WARNING : this is warning message
+2018-04-07 18:24:31,059 ERROR   : this is error message
+2018-04-07 18:24:31,061 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:24:31,061 CRITICAL: this is critical message
+2018-04-07 18:31:40,203 INFO    : this is information
+2018-04-07 18:31:40,203 WARNING : this is warning message
+2018-04-07 18:31:40,203 ERROR   : this is error message
+2018-04-07 18:31:40,203 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:31:40,203 CRITICAL: this is critical message
+2018-04-07 18:36:31,026 INFO    : this is information
+2018-04-07 18:36:31,026 WARNING : this is warning message
+2018-04-07 18:36:31,026 ERROR   : this is error message
+2018-04-07 18:36:31,026 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:36:31,028 CRITICAL: this is critical message
+2018-04-07 18:41:43,457 INFO    : this is information
+2018-04-07 18:41:43,457 WARNING : this is warning message
+2018-04-07 18:41:43,457 ERROR   : this is error message
+2018-04-07 18:41:43,457 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:41:43,457 CRITICAL: this is critical message
+2018-04-07 18:43:01,036 INFO    : this is information
+2018-04-07 18:43:01,036 WARNING : this is warning message
+2018-04-07 18:43:01,036 ERROR   : this is error message
+2018-04-07 18:43:01,036 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:43:01,036 CRITICAL: this is critical message
+2018-04-07 18:44:55,197 INFO    : this is information
+2018-04-07 18:44:55,198 WARNING : this is warning message
+2018-04-07 18:44:55,198 ERROR   : this is error message
+2018-04-07 18:44:55,198 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:44:55,198 CRITICAL: this is critical message
+2018-04-07 18:47:39,520 INFO    : this is information
+2018-04-07 18:47:39,520 WARNING : this is warning message
+2018-04-07 18:47:39,520 ERROR   : this is error message
+2018-04-07 18:47:39,522 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:47:39,522 CRITICAL: this is critical message
+2018-04-07 18:48:23,108 INFO    : this is information
+2018-04-07 18:48:23,108 WARNING : this is warning message
+2018-04-07 18:48:23,109 ERROR   : this is error message
+2018-04-07 18:48:23,109 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:48:23,109 CRITICAL: this is critical message
+2018-04-07 18:49:13,088 INFO    : this is information
+2018-04-07 18:49:13,088 WARNING : this is warning message
+2018-04-07 18:49:13,088 ERROR   : this is error message
+2018-04-07 18:49:13,088 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:49:13,088 CRITICAL: this is critical message
+2018-04-07 18:50:04,482 INFO    : this is information
+2018-04-07 18:50:04,482 WARNING : this is warning message
+2018-04-07 18:50:04,482 ERROR   : this is error message
+2018-04-07 18:50:04,482 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:50:04,482 CRITICAL: this is critical message
+2018-04-07 18:51:23,926 INFO    : this is information
+2018-04-07 18:51:23,926 WARNING : this is warning message
+2018-04-07 18:51:23,926 ERROR   : this is error message
+2018-04-07 18:51:23,926 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:51:23,927 CRITICAL: this is critical message
+2018-04-07 18:52:02,776 INFO    : this is information
+2018-04-07 18:52:02,776 WARNING : this is warning message
+2018-04-07 18:52:02,776 ERROR   : this is error message
+2018-04-07 18:52:02,776 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:52:02,778 CRITICAL: this is critical message
+2018-04-07 18:57:23,913 INFO    : this is information
+2018-04-07 18:57:23,914 WARNING : this is warning message
+2018-04-07 18:57:23,914 ERROR   : this is error message
+2018-04-07 18:57:23,914 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 18:57:23,914 CRITICAL: this is critical message
+2018-04-07 19:00:12,638 INFO    : this is information
+2018-04-07 19:00:12,638 WARNING : this is warning message
+2018-04-07 19:00:12,640 ERROR   : this is error message
+2018-04-07 19:00:12,641 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 19:00:12,641 CRITICAL: this is critical message
+2018-04-07 19:40:45,354 INFO    : this is information
+2018-04-07 19:40:45,354 WARNING : this is warning message
+2018-04-07 19:40:45,354 ERROR   : this is error message
+2018-04-07 19:40:45,354 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 19:40:45,355 CRITICAL: this is critical message
+2018-04-07 19:41:54,365 INFO    : this is information
+2018-04-07 19:41:54,365 WARNING : this is warning message
+2018-04-07 19:41:54,365 ERROR   : this is error message
+2018-04-07 19:41:54,365 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 19:41:54,365 CRITICAL: this is critical message
+2018-04-07 19:43:31,325 INFO    : this is information
+2018-04-07 19:43:31,325 WARNING : this is warning message
+2018-04-07 19:43:31,325 ERROR   : this is error message
+2018-04-07 19:43:31,326 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 19:43:31,326 CRITICAL: this is critical message
+2018-04-07 19:44:46,891 INFO    : this is information
+2018-04-07 19:44:46,891 WARNING : this is warning message
+2018-04-07 19:44:46,891 ERROR   : this is error message
+2018-04-07 19:44:46,891 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 19:44:46,891 CRITICAL: this is critical message
+2018-04-07 19:47:26,743 INFO    : this is information
+2018-04-07 19:47:26,744 WARNING : this is warning message
+2018-04-07 19:47:26,744 ERROR   : this is error message
+2018-04-07 19:47:26,744 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 19:47:26,746 CRITICAL: this is critical message
+2018-04-07 19:51:07,003 INFO    : this is information
+2018-04-07 19:51:07,003 WARNING : this is warning message
+2018-04-07 19:51:07,003 ERROR   : this is error message
+2018-04-07 19:51:07,005 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 19:51:07,005 CRITICAL: this is critical message
+2018-04-07 19:52:55,219 INFO    : this is information
+2018-04-07 19:52:55,220 WARNING : this is warning message
+2018-04-07 19:52:55,220 ERROR   : this is error message
+2018-04-07 19:52:55,220 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 19:52:55,220 CRITICAL: this is critical message
+2018-04-07 20:18:11,684 INFO    : this is information
+2018-04-07 20:18:11,684 WARNING : this is warning message
+2018-04-07 20:18:11,684 ERROR   : this is error message
+2018-04-07 20:18:11,684 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 20:18:11,684 CRITICAL: this is critical message
+2018-04-07 20:21:13,493 INFO    : this is information
+2018-04-07 20:21:13,494 WARNING : this is warning message
+2018-04-07 20:21:13,496 ERROR   : this is error message
+2018-04-07 20:21:13,496 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 20:21:13,496 CRITICAL: this is critical message
+2018-04-07 20:22:32,316 INFO    : this is information
+2018-04-07 20:22:32,316 WARNING : this is warning message
+2018-04-07 20:22:32,316 ERROR   : this is error message
+2018-04-07 20:22:32,318 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 20:22:32,318 CRITICAL: this is critical message
+2018-04-07 20:28:08,796 INFO    : this is information
+2018-04-07 20:28:08,796 WARNING : this is warning message
+2018-04-07 20:28:08,796 ERROR   : this is error message
+2018-04-07 20:28:08,798 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 20:28:08,798 CRITICAL: this is critical message
+2018-04-07 20:37:05,224 INFO    : this is information
+2018-04-07 20:37:05,226 WARNING : this is warning message
+2018-04-07 20:37:05,226 ERROR   : this is error message
+2018-04-07 20:37:05,226 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 20:37:05,226 CRITICAL: this is critical message
+2018-04-07 20:53:42,825 INFO    : this is information
+2018-04-07 20:53:42,825 WARNING : this is warning message
+2018-04-07 20:53:42,825 ERROR   : this is error message
+2018-04-07 20:53:42,826 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 20:53:42,826 CRITICAL: this is critical message
+2018-04-07 20:56:57,206 INFO    : this is information
+2018-04-07 20:56:57,207 WARNING : this is warning message
+2018-04-07 20:56:57,207 ERROR   : this is error message
+2018-04-07 20:56:57,207 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 20:56:57,207 CRITICAL: this is critical message
+2018-04-07 21:00:42,413 INFO    : this is information
+2018-04-07 21:00:42,414 WARNING : this is warning message
+2018-04-07 21:00:42,414 ERROR   : this is error message
+2018-04-07 21:00:42,414 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 21:00:42,414 CRITICAL: this is critical message
+2018-04-07 21:01:47,194 INFO    : this is information
+2018-04-07 21:01:47,194 WARNING : this is warning message
+2018-04-07 21:01:47,194 ERROR   : this is error message
+2018-04-07 21:01:47,194 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 21:01:47,196 CRITICAL: this is critical message
+2018-04-07 21:04:00,473 INFO    : this is information
+2018-04-07 21:04:00,474 WARNING : this is warning message
+2018-04-07 21:04:00,474 ERROR   : this is error message
+2018-04-07 21:04:00,474 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 21:04:00,476 CRITICAL: this is critical message
+2018-04-07 21:06:40,803 INFO    : this is information
+2018-04-07 21:06:40,805 WARNING : this is warning message
+2018-04-07 21:06:40,805 ERROR   : this is error message
+2018-04-07 21:06:40,805 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 21:06:40,805 CRITICAL: this is critical message
+2018-04-07 21:09:21,276 INFO    : this is information
+2018-04-07 21:09:21,276 WARNING : this is warning message
+2018-04-07 21:09:21,276 ERROR   : this is error message
+2018-04-07 21:09:21,276 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 21:09:21,276 CRITICAL: this is critical message
+2018-04-07 21:22:37,098 INFO    : this is information
+2018-04-07 21:22:37,098 WARNING : this is warning message
+2018-04-07 21:22:37,098 ERROR   : this is error message
+2018-04-07 21:22:37,098 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-07 21:22:37,098 CRITICAL: this is critical message
+2018-04-08 09:47:39,733 INFO    : this is information
+2018-04-08 09:47:39,733 WARNING : this is warning message
+2018-04-08 09:47:39,734 ERROR   : this is error message
+2018-04-08 09:47:39,734 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-08 09:47:39,734 CRITICAL: this is critical message
+2018-04-08 10:12:39,144 INFO    : this is information
+2018-04-08 10:12:39,145 WARNING : this is warning message
+2018-04-08 10:12:39,147 ERROR   : this is error message
+2018-04-08 10:12:39,148 CRITICAL: this is fatal message, it is same as logger.critical
+2018-04-08 10:12:39,148 CRITICAL: this is critical message

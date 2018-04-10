@@ -79,6 +79,7 @@ class YiCaiFinancePipeline(object):
 class WallStreetPipeline(object):
     #mongodb
     def __init__(self):
+        self.count = 0
         host = settings['WALLSTREET_MONGODB_SERVER']
         port = settings['WALLSTREET_MONGODB_PORT']
         #创建mongodb数据库连接
@@ -90,6 +91,8 @@ class WallStreetPipeline(object):
         self.post = tdb[settings['WALLSTREET_MONGODB_DB_COLLECTION']]
 
     def process_item(self, item, spider):
+        self.count = self.count + 1
+        print('+++++insert:+++++' + str(self.count))
         wall_street = dict(item)
         self.post.insert(wall_street)
         return item

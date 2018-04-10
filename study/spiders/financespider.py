@@ -132,10 +132,10 @@ class WallStreetSpider(scrapy.Spider):
 class WallStreetJsonSpider(scrapy.Spider):
     name = "wallStreetJson"
     allowed_domains = ["wallstreetcn.com"]
-    page =1000
+    page =10000
     #for page in range(1,3):
-    #start_urls=['https://api-prod.wallstreetcn.com/apiv1/content/articles?category=global&limit=20&cursor=1523177720,1523027497&platform=wscn-platform']
-    start_urls = ['https://api-prod.wallstreetcn.com/apiv1/content/articles?platform=wscn-platform&category=us&limit='+str(page)]
+    start_urls = ['https://api-prod.wallstreetcn.com/apiv1/content/articles?category=global&limit=200&cursor=1523177720,1523178984&platform=wscn-platform']
+    #start_urls = ['https://api-prod.wallstreetcn.com/apiv1/content/articles?platform=wscn-platform&category=us&limit='+str(page)]
     print ('orgin url',start_urls)
     def parse(self, response):
         js = json.loads(response.body_as_unicode())['data']['items']
@@ -160,11 +160,11 @@ class WallStreetJsonSpider(scrapy.Spider):
         item['desc'] = response.meta['desc']
         item['title'] = response.meta['title']
         item['content'] = response.xpath('//div[@class="node-article-content"]/p/text()').extract()
-        item['pushTime'] = response.xpath('//span[@class="meta-item__text"]/text()').extract()[0]
+        #item['pushTime'] = response.xpath('//span[@class="meta-item__text"]/text()').extract()[0]
         yield item
 
 
-#中金在线
+#中金在线(解析页面元素,得到数据,并入库)
 class CnfolSpider(scrapy.Spider):
     name = "cnfol"
     allowed_domains = ["news.cnfol.com/"]
@@ -213,7 +213,7 @@ class CnfolSpider(scrapy.Spider):
 #此处定义 是为了解决返回的是jsonp
 _jsonp_begin = r'callback('
 _jsonp_end = r')'
-#中金在线
+#中金在线(解析jsonp,得到数据,并入库)
 logger = logging.getLogger("CnfolJsonSpider")
 
 class CnfolJsonSpider(scrapy.Spider):
@@ -231,7 +231,7 @@ class CnfolJsonSpider(scrapy.Spider):
     # 13位时间错
     millis = int(round(time.time() * 1000))
     start_urls = []
-    for page in range(11, 21):
+    for page in range(21, 51):
         for record in range(1,5):
             urls = 'http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=101&starttime='+str(timestamp)+'&endtime='+str(timestamp)+'&num='+str(num)+'&page='+str(page)+'&record='+str(record)+'&jsoncallback=callback&_='+str(millis)
     #start_urls = ['http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=101&starttime=1523151906&endtime=1523151906&num=2&page=1&record=1&jsoncallback=callback&=1523151906782']
