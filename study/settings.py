@@ -207,3 +207,4 @@ MYSQL_PASSWD = 'root'
 #此处定义 同时执行多个爬虫 未测试
 COMMANDS_MODULE = 'study.commands'
 
+FEED_EXPORT_ENCODING = 'utf-8'

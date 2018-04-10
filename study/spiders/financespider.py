@@ -17,27 +17,39 @@ import re
 class SinaFinanceSpider(scrapy.Spider):
     name = "sinaFinance"
     allowed_domains = ["finance.sina.com.cn/"]
-    start_urls = []
-    for page in range(1,5):
-        urls = 'http://finance.sina.com.cn/topnews/#'+str(page)
-        start_urls.append(urls)
-        print ('start_urls',start_urls)
+    start_urls = ['http://top.finance.sina.com.cn/ws/GetTopDataList.php?top_type=day&top_cat=finance_0_suda&top_time=20180410&top_show_num=20&top_order=DESC&js_var=all_1_data&get_new=1']
+    # for page in range(1,2):
+    #     urls = 'http://finance.sina.com.cn/topnews/#'+str(page)
+    #     start_urls.append(urls)
+    #     print ('start_urls',start_urls)
     def parse(self, response):
         item = SinaFinanceItem()
-        trs = response.xpath('//tr/td[@class="ConsTi"]')
-        print trs
-        for each_move in trs:
-            item['url'] =''
-            item['title']=''
-            item['soucre']=''
-            item['pushTime']=''
-            item = SinaFinanceItem()
-            item['name'] = each_move.xpath('./h5/a/@title').extract()[0]
-            item['place'] = each_move.xpath('./span[@class="mjtv"]/text()').extract()[0]
+        jsonObjects = response.body.strip()
+        data = jsonObjects.replace('var all_1_data = {"conf":{"js_var":"all_1_data"},"data":', '')[:-3]
+        print ('responsebodyorgin----',data)
+        for dd in data:
+            d = []
+            ss = dd['id']
+            url = dd['url']
+            create_date = dd['create_date'].replace('\\', '') + " " + dd['create_time'].replace('\\', '')
+            d.append(ss)
+            d.append(url)
+            d.append(create_date)
+            print d
 
-            request = scrapy.Request(urls='',callback=self.parse_detail())
-            request.meta['item'] = item
-        return  request
+
+        # for each_move in trs:
+        #     item['url'] =''
+        #     item['title']=''
+        #     item['soucre']=''
+        #     item['pushTime']=''
+        #     item = SinaFinanceItem()
+        #     item['name'] = each_move.xpath('./h5/a/@title').extract()[0]
+        #     item['place'] = each_move.xpath('./span[@class="mjtv"]/text()').extract()[0]
+        #
+        #     request = scrapy.Request(urls='',callback=self.parse_detail())
+        #     request.meta['item'] = item
+        # return  request
 
     def parse_detail(self,response):
         item = SinaFinanceItem()
