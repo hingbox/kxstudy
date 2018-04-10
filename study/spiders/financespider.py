@@ -17,26 +17,49 @@ import re
 class SinaFinanceSpider(scrapy.Spider):
     name = "sinaFinance"
     allowed_domains = ["finance.sina.com.cn/"]
-    start_urls = ['http://www.meijutt.com/new100.html']
+    start_urls = []
+    for page in range(1,5):
+        urls = 'http://finance.sina.com.cn/topnews/#'+str(page)
+        start_urls.append(urls)
+        print ('start_urls',start_urls)
     def parse(self, response):
-        movies = response.xpath('//ul[@class="top-list  fn-clear"]/li')
-        for each_move in movies:
+        item = SinaFinanceItem()
+        trs = response.xpath('//tr/td[@class="ConsTi"]')
+        print trs
+        for each_move in trs:
+            item['url'] =''
+            item['title']=''
+            item['soucre']=''
+            item['pushTime']=''
             item = SinaFinanceItem()
             item['name'] = each_move.xpath('./h5/a/@title').extract()[0]
-            #item['status'] = each_move.xpath('//span[@class="state1  new100state1"]/font/text()').extract()[0]
             item['place'] = each_move.xpath('./span[@class="mjtv"]/text()').extract()[0]
-            yield item
+
+            request = scrapy.Request(urls='',callback=self.parse_detail())
+            request.meta['item'] = item
+        return  request
+
+    def parse_detail(self,response):
+        item = SinaFinanceItem()
+
+        yield item
+
+
 #第一财经
 class yiCaiFinanceSpider(scrapy.Spider):
     name = "yiCaiFinance"
     allowed_domains = ["www.yicai.com/"]
-    start_urls = ['http://www.yicai.com/news/']
-
+    start_urls = []
+    for page in range(1,5):
+        pages = page*3+1
+        urls = 'http://www.yicai.com/api/ajax/NsList/'+str(page)+'/77'
+        start_urls.append(urls)
+        print('start_urls',urls)
     def parse(self, response):
         dlItems = response.xpath('//div[@class="m-list8"]/dl')
         for dl in dlItems:
             item = YiCaiFinanceItem()
-            url=dl.xpath('./dd/h3/a/@href').extract()[0]
+            url = dl.xpath('./dd/h3/a/@href').extract()[0]
             yield scrapy.FormRequest(
                 url=url,
                 meta={'url' : url,
@@ -44,7 +67,7 @@ class yiCaiFinanceSpider(scrapy.Spider):
                       'title':dl.xpath('./dd/h3/a/text()').extract()[0],
                       'desc':dl.xpath('./dd/p/text()').extract()[0],
                       'pushTime':dl.xpath('./dd/h4/text()').extract()[0]
-                                 },
+                      },
                 method='GET',
                 dont_filter=True,
                 callback=self.parseDetail)
@@ -57,19 +80,19 @@ class yiCaiFinanceSpider(scrapy.Spider):
         item['desc'] = response.meta['desc']
         item['pushTime'] = response.meta['pushTime']
         item['content'] = response.xpath('//div[@class="m-text"]/p/text()').extract()
-        yield item
+        print item
 
 
-    def nextRequest(self,response):
-        print '进来了'
-        yield scrapy.FormRequest(url='http://www.yicai.com/api/ajax/NsList/6/77',
-                                 method='POST',
-                                 formdata={
-                                     'news_List': "news_List"
-                                 },
-                                 dont_filter=True,
-                                 callback=self.parse
-                                 )
+    # def nextRequest(self,response):
+    #     print '进来了'
+    #     yield scrapy.FormRequest(url='http://www.yicai.com/api/ajax/NsList/6/77',
+    #                              method='POST',
+    #                              formdata={
+    #                                  'news_List': "news_List"
+    #                              },
+    #                              dont_filter=True,
+    #                              callback=self.parse
+    #                              )
 
 
 
