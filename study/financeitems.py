@@ -7,6 +7,7 @@ class SinaFinanceItem(scrapy.Item):
     source = scrapy.Field()
     url = scrapy.Field()
     content = scrapy.Field()
+    pushTime = scrapy.Field()
 #第一财经
 class YiCaiFinanceItem(scrapy.Item):
     title = scrapy.Field()
@@ -34,4 +35,11 @@ class CnfolItem(scrapy.Item):
     content = scrapy.Field()
     pushTime = scrapy.Field()
 
-
+#和讯网
+class HeXunItem(scrapy.Item):
+    title = scrapy.Field()
+    source = scrapy.Field()
+    url = scrapy.Field()
+    desc = scrapy.Field()
+    content = scrapy.Field()
+    pushTime = scrapy.Field()

@@ -84,10 +84,10 @@ ITEM_PIPELINES = {
     #'study.pipelines.StudyPipeline': 100,
    # 'study.pipelines.XiaoHuaPipeline': 100,
 
-    'study.financepipelines.CnfolPipeline': 102,
+    #'study.financepipelines.CnfolPipeline': 102,
     #'study.financepipelines.WallStreetPipeline': 101,
     #'study.financepipelines.SinaFinancePipeline': 100,
-    #'study.financepipelines.YiCaiFinancePipeline': 99,
+    'study.financepipelines.YiCaiFinancePipeline': 99,
     #'study.pipelines.CaiJingXinWenline':80,
     #'study.pipelines.PatentPipeline':86,
     #'study.pipelines.KuaiDaiLiPipeline':87,
@@ -177,12 +177,17 @@ MONGODB_PORT_QIUSHIBAIKE = 27017
 MONGODB_DB_QIUSHIBAIKE = "qsbk"
 MONGODB_COLLECTION_QIUSHIBAIKE = "qiushibaike"
 
-#财经相关库及表
+#新浪财经表
 FINANCE_MONGODB_SERVER = "localhost"
 FINANCE_MONGODB_PORT = 27017
 FINANCE_MONGODB_DB = "finance"
 FINANCE_MONGODB_SINAFINANCE_COLLECTION = "sinafinace"
-FINANCE_MONGODB_YICAIFINANCE_COLLECTION = "yicaifinace"
+
+#一财财经表
+YICAI_MONGODB_SERVER = "localhost"
+YICAI_MONGODB_PORT = 27017
+YICAI_MONGODB_DB = "finance"
+YICAI_MONGODB_YICAIFINANCE_COLLECTION = "yicaifinace"
 
 #华尔街见闻
 WALLSTREET_MONGODB_SERVER = "localhost"
@@ -196,6 +201,12 @@ CONFOL_MONGODB_SERVER = "localhost"
 CONFOL_MONGODB_PORT = 27017
 CONFOL_MONGODB_DB = "finance"
 CONFOL_MONGODB_DB_COLLECTION = "confol"
+
+#和讯网经表
+HEXUN_MONGODB_SERVER = "localhost"
+HEXUN_MONGODB_PORT = 27017
+HEXUN_MONGODB_DB = "finance"
+HEXUN_MONGODB_SINAFINANCE_COLLECTION = "hexun"
 
 #mysql
 MYSQL_HOST = '127.0.0.1'

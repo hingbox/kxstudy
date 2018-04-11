@@ -27,6 +27,7 @@ class SinaFinancePipeline(object):
     # def close_spider(self,spider):
     #     self.filename.close()
      def __init__(self):
+        self.count = 0
         host = settings['FINANCE_MONGODB_SERVER']
         port = settings['FINANCE_MONGODB_PORT']
         #创建mongodb数据库连接
@@ -38,24 +39,26 @@ class SinaFinancePipeline(object):
         self.post = tdb[settings['FINANCE_MONGODB_SINAFINANCE_COLLECTION']]
 
      def process_item(self, item, spider):
-        sinafinance = dict(item)
-        self.post.insert(sinafinance)
-        return item
+         self.count = self.count + 1
+         print('+++++insert:+++++' + str(self.count))
+         sinafinance = dict(item)
+         self.post.insert(sinafinance)
+         return item
 
 
 #第一财经
 class YiCaiFinancePipeline(object):
     #mongodb
     def __init__(self):
-        host = settings['FINANCE_MONGODB_SERVER']
-        port = settings['FINANCE_MONGODB_PORT']
+        host = settings['YICAI_MONGODB_SERVER']
+        port = settings['YICAI_MONGODB_PORT']
         #创建mongodb数据库连接
         client = pymongo.MongoClient(host=host, port=port)
-        dbName = settings['FINANCE_MONGODB_DB']
+        dbName = settings['YICAI_MONGODB_DB']
         #指定数据库
         tdb = client[dbName]
         #存放数据的数据表名
-        self.post = tdb[settings['FINANCE_MONGODB_YICAIFINANCE_COLLECTION']]
+        self.post = tdb[settings['YICAI_MONGODB_YICAIFINANCE_COLLECTION']]
 
     def process_item(self, item, spider):
         yicaifinance = dict(item)
@@ -122,3 +125,24 @@ class CnfolPipeline(object):
 
 
 
+#和讯网
+class HeXunPipeline(object):
+    #mongodb
+    def __init__(self):
+        self.count = 0
+        host = settings['HEXUN_MONGODB_SERVER']
+        port = settings['HEXUN_MONGODB_PORT']
+        #创建mongodb数据库连接
+        client = pymongo.MongoClient(host=host, port=port)
+        dbName = settings['HEXUN_MONGODB_DB']
+        #指定数据库
+        tdb = client[dbName]
+        #存放数据的数据表名
+        self.post = tdb[settings['HEXUN_MONGODB_SINAFINANCE_COLLECTION']]
+
+    def process_item(self, item, spider):
+        self.count = self.count + 1
+        print('+++++insert:+++++' + str(self.count))
+        hexun = dict(item)
+        self.post.insert(hexun)
+        return item

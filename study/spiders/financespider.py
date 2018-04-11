@@ -7,54 +7,64 @@ from study.financeitems import YiCaiFinanceItem
 from study.financeitems import SinaFinanceItem
 from study.financeitems import WallStreetItem
 from study.financeitems import CnfolItem
+from study.financeitems import HeXunItem
 from scrapy import Spider,Request
 import logging
 import json
 import sys
 import time
 import re
+reload(sys)
+sys.setdefaultencoding('utf8')
 #新浪财经
+_json_begin = r'var all_1_data = '
+_json_end = r';'
 class SinaFinanceSpider(scrapy.Spider):
     name = "sinaFinance"
     allowed_domains = ["finance.sina.com.cn/"]
-    start_urls = ['http://top.finance.sina.com.cn/ws/GetTopDataList.php?top_type=day&top_cat=finance_0_suda&top_time=20180410&top_show_num=20&top_order=DESC&js_var=all_1_data&get_new=1']
+    top_time = "20180404"#日期
+    top_show_num = 100#每页显示1000条
+    start_urls = ['http://top.finance.sina.com.cn/ws/GetTopDataList.php?top_type=day&top_cat=finance_0_suda&top_time='+top_time+'&top_show_num='+str(top_show_num)+'&top_order=DESC&js_var=all_1_data&get_new=1']
     # for page in range(1,2):
     #     urls = 'http://finance.sina.com.cn/topnews/#'+str(page)
     #     start_urls.append(urls)
     #     print ('start_urls',start_urls)
     def parse(self, response):
-        item = SinaFinanceItem()
-        jsonObjects = response.body.strip()
-        data = jsonObjects.replace('var all_1_data = {"conf":{"js_var":"all_1_data"},"data":', '')[:-3]
-        print ('responsebodyorgin----',data)
-        for dd in data:
-            d = []
-            ss = dd['id']
-            url = dd['url']
-            create_date = dd['create_date'].replace('\\', '') + " " + dd['create_time'].replace('\\', '')
-            d.append(ss)
-            d.append(url)
-            d.append(create_date)
-            print d
-
-
-        # for each_move in trs:
-        #     item['url'] =''
-        #     item['title']=''
-        #     item['soucre']=''
-        #     item['pushTime']=''
-        #     item = SinaFinanceItem()
-        #     item['name'] = each_move.xpath('./h5/a/@title').extract()[0]
-        #     item['place'] = each_move.xpath('./span[@class="mjtv"]/text()').extract()[0]
-        #
-        #     request = scrapy.Request(urls='',callback=self.parse_detail())
-        #     request.meta['item'] = item
-        # return  request
+        items = SinaFinanceItem()
+        jsonp_str = response.body.strip()
+        if not jsonp_str.startswith(_json_begin) or \
+                not jsonp_str.endswith(_json_end):
+            raise ValueError('Invalid JSONP')
+        strJsons = json.loads(jsonp_str[len(_json_begin):-len(_json_end)])['data']
+        print('strJsons',strJsons)
+        for strJson in strJsons:
+            # items['url'] = strJson['url']
+            # items['title'] = strJson['title']
+            # items['pushTime'] = strJson['time']
+            #print ('url',strJson['url'])
+            yield scrapy.FormRequest(
+                url=strJson['url'],
+                method='GET',
+                #meta={'items': items},
+                meta={
+                    'url':strJson['url'],
+                    'title':strJson['title'],
+                    'pushTime':strJson['time']
+                },
+                dont_filter=True,
+                callback=self.parse_detail
+            )
 
     def parse_detail(self,response):
         item = SinaFinanceItem()
-
+        item['url'] = response.meta['url']
+        item['title'] = response.meta['title']
+        item['pushTime'] = response.meta['pushTime']
+        item['content'] = response.xpath('//div[@class="article"]/p/text()').extract()
         yield item
+        #item = SinaFinanceItem()
+
+        #print item
 
 
 #第一财经
@@ -92,7 +102,7 @@ class yiCaiFinanceSpider(scrapy.Spider):
         item['desc'] = response.meta['desc']
         item['pushTime'] = response.meta['pushTime']
         item['content'] = response.xpath('//div[@class="m-text"]/p/text()').extract()
-        print item
+        yield item
 
 
     # def nextRequest(self,response):
@@ -144,9 +154,10 @@ class WallStreetSpider(scrapy.Spider):
 class WallStreetJsonSpider(scrapy.Spider):
     name = "wallStreetJson"
     allowed_domains = ["wallstreetcn.com"]
-    page =10000
+    cursor = "1522598400,1522512000"
+    page = 100
     #for page in range(1,3):
-    start_urls = ['https://api-prod.wallstreetcn.com/apiv1/content/articles?category=global&limit=200&cursor=1523177720,1523178984&platform=wscn-platform']
+    start_urls = ['https://api-prod.wallstreetcn.com/apiv1/content/articles?category=global&limit='+str(page)+'&cursor='+str(cursor)+'&platform=wscn-platform']
     #start_urls = ['https://api-prod.wallstreetcn.com/apiv1/content/articles?platform=wscn-platform&category=us&limit='+str(page)]
     print ('orgin url',start_urls)
     def parse(self, response):
@@ -243,7 +254,7 @@ class CnfolJsonSpider(scrapy.Spider):
     # 13位时间错
     millis = int(round(time.time() * 1000))
     start_urls = []
-    for page in range(21, 51):
+    for page in range(51, 71):#已执行
         for record in range(1,5):
             urls = 'http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=101&starttime='+str(timestamp)+'&endtime='+str(timestamp)+'&num='+str(num)+'&page='+str(page)+'&record='+str(record)+'&jsoncallback=callback&_='+str(millis)
     #start_urls = ['http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=101&starttime=1523151906&endtime=1523151906&num=2&page=1&record=1&jsoncallback=callback&=1523151906782']
@@ -341,3 +352,36 @@ class CnfolJsonSpider(scrapy.Spider):
             j = json.loads(re.findall(r'^\w+\((.*)\)$', json_str)[0])
             return j
             #print(type(j),j)
+
+
+#和讯网(解析页面元素,得到数据,并入库)
+class HeXunSpider(scrapy.Spider):
+    name = "hexun"
+    allowed_domains = ["news.hexun.com"]
+    start_urls = ['http://news.hexun.com/']
+    def parse(self, response):
+        #从左边开始匹配
+        div_items = response.xpath('//*[starts-with(@class,"m_news")]/ul')
+        for div_item in div_items:
+            link = div_item.xpath('./li/a[1]/@href').extract()[0]
+            title = div_item.xpath('./li/a[1]/text()').extract()[0]
+            print ('------link----',link,'-----title------ ',title)
+            #print url
+            yield scrapy.FormRequest(
+                url=link,
+                meta={
+                    'url': link,
+                    'title': title
+                },
+                method='GET',
+                dont_filter=True,
+                callback=self.prase_detail
+            )
+
+    def prase_detail(self, response):
+        item = HeXunItem()
+        item['url'] = response.meta['url']
+        item['title'] = response.meta['title']
+        item['content'] = response.xpath('//div[@class="art_context"]/div[@class="art_contextBox"]/p/text()').extract()
+        #item['pushTime'] = response.xpath('//div[@class="clearfix"]/div[@class="tip fl"]/span[@class="pr20"]/text()').extract()[0]
+        return item
