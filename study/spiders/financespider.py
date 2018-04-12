@@ -8,14 +8,16 @@ from study.financeitems import SinaFinanceItem
 from study.financeitems import WallStreetItem
 from study.financeitems import CnfolItem
 from study.financeitems import HeXunItem
+#导入封装的日志记录模块
+from study.logger import Logger
 from scrapy import Spider,Request
-import logging
 import json
 import sys
 import time
 import re
 reload(sys)
 sys.setdefaultencoding('utf8')
+
 #新浪财经
 _json_begin = r'var all_1_data = '
 _json_end = r';'
@@ -237,8 +239,6 @@ class CnfolSpider(scrapy.Spider):
 _jsonp_begin = r'callback('
 _jsonp_end = r')'
 #中金在线(解析jsonp,得到数据,并入库)
-logger = logging.getLogger("CnfolJsonSpider")
-
 class CnfolJsonSpider(scrapy.Spider):
     #logging.basicConfig(level=logging.DEBUG,
                        # format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')  # logging.basicConfig函数对日志的输出格式及方式做相关配置
@@ -304,25 +304,25 @@ class CnfolJsonSpider(scrapy.Spider):
 
 
     def closed(self,response):
-        self.count
-        # 获取logger实例，如果参数为空则返回root logger
-        logger = logging.getLogger("cnfolJson")
-
-        # 指定logger输出格式
-        formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s -%(filename)s ')
-        # 控制台日志
-        console_handler = logging.StreamHandler(sys.stdout)
-        console_handler.formatter = formatter  # 也可以直接给formatter赋值
-
-        # 文件日志
-        file_handler = logging.FileHandler("test.log")
-        file_handler.setFormatter(formatter)  # 可以通过setFormatter指定输出格式
-        # 为logger添加的日志处理器
-        logger.addHandler(file_handler)
-        logger.addHandler(console_handler)
-
-        # 指定日志的最低输出级别，默认为WARN级别
-        logger.setLevel(logging.INFO)
+        # self.count
+        # # 获取logger实例，如果参数为空则返回root logger
+        # logger = logging.getLogger("cnfolJson")
+        #
+        # # 指定logger输出格式
+        # formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s -%(filename)s ')
+        # # 控制台日志
+        # console_handler = logging.StreamHandler(sys.stdout)
+        # console_handler.formatter = formatter  # 也可以直接给formatter赋值
+        #
+        # # 文件日志
+        # file_handler = logging.FileHandler("test.log")
+        # file_handler.setFormatter(formatter)  # 可以通过setFormatter指定输出格式
+        # # 为logger添加的日志处理器
+        # logger.addHandler(file_handler)
+        # logger.addHandler(console_handler)
+        #
+        # # 指定日志的最低输出级别，默认为WARN级别
+        # logger.setLevel(logging.INFO)
 
         # 输出不同级别的log
         # logger.debug('this is debug info')
@@ -354,29 +354,36 @@ class CnfolJsonSpider(scrapy.Spider):
             #print(type(j),j)
 
 
+
+    def getlog(self):
+        return self.logger
 #和讯网(解析页面元素,得到数据,并入库)
+
+ #创建日志记录对象
+log = Logger()
 class HeXunSpider(scrapy.Spider):
     name = "hexun"
     allowed_domains = ["news.hexun.com"]
     start_urls = ['http://news.hexun.com/']
     def parse(self, response):
-        #从左边开始匹配
-        div_items = response.xpath('//*[starts-with(@class,"m_news")]/ul')
-        for div_item in div_items:
-            link = div_item.xpath('./li/a[1]/@href').extract()[0]
-            title = div_item.xpath('./li/a[1]/text()').extract()[0]
-            print ('------link----',link,'-----title------ ',title)
-            #print url
-            yield scrapy.FormRequest(
-                url=link,
-                meta={
-                    'url': link,
-                    'title': title
-                },
-                method='GET',
-                dont_filter=True,
-                callback=self.prase_detail
-            )
+        #获取首页上的标签  新闻/事实;股票/7*24小时快讯;
+        div_items = response.xpath('//*[starts-with(@class,"c1")]/div[@class="newsTop"]')
+        log.info('----%s',div_items)
+        # for div_item in div_items:
+        #     link = div_item.xpath('./li/a[1]/@href').extract()[0]
+        #     title = div_item.xpath('./li/a[1]/text()').extract()[0]
+        #     print ('------link----',link,'-----title------ ',title)
+        #     #print url
+        #     yield scrapy.FormRequest(
+        #         url=link,
+        #         meta={
+        #             'url': link,
+        #             'title': title
+        #         },
+        #         method='GET',
+        #         dont_filter=True,
+        #         callback=self.prase_detail
+        #     )
 
     def prase_detail(self, response):
         item = HeXunItem()
@@ -385,3 +392,34 @@ class HeXunSpider(scrapy.Spider):
         item['content'] = response.xpath('//div[@class="art_context"]/div[@class="art_contextBox"]/p/text()').extract()
         #item['pushTime'] = response.xpath('//div[@class="clearfix"]/div[@class="tip fl"]/span[@class="pr20"]/text()').extract()[0]
         return item
+
+# class HeXunSpider(scrapy.Spider):
+#     name = "hexun"
+#     allowed_domains = ["news.hexun.com"]
+#     start_urls = ['http://news.hexun.com/']
+#     def parse(self, response):
+#         #从左边开始匹配
+#         div_items = response.xpath('//*[starts-with(@class,"m_news")]/ul')
+#         for div_item in div_items:
+#             link = div_item.xpath('./li/a[1]/@href').extract()[0]
+#             title = div_item.xpath('./li/a[1]/text()').extract()[0]
+#             print ('------link----',link,'-----title------ ',title)
+#             #print url
+#             yield scrapy.FormRequest(
+#                 url=link,
+#                 meta={
+#                     'url': link,
+#                     'title': title
+#                 },
+#                 method='GET',
+#                 dont_filter=True,
+#                 callback=self.prase_detail
+#             )
+#
+#     def prase_detail(self, response):
+#         item = HeXunItem()
+#         item['url'] = response.meta['url']
+#         item['title'] = response.meta['title']
+#         item['content'] = response.xpath('//div[@class="art_context"]/div[@class="art_contextBox"]/p/text()').extract()
+#         #item['pushTime'] = response.xpath('//div[@class="clearfix"]/div[@class="tip fl"]/span[@class="pr20"]/text()').extract()[0]
+#         return item
