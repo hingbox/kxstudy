@@ -6,9 +6,10 @@
 # http://doc.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-
-
 class HexunspiderItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    title = scrapy.Field()
+    source = scrapy.Field()
+    url = scrapy.Field()
+    desc = scrapy.Field()
+    content = scrapy.Field()
+    pushTime = scrapy.Field()

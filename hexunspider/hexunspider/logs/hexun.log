@@ -1,0 +1,5 @@
+[2018-04-12 22:02:52,305] - financespider.py [Line:371] - [DEBUG]-[thread:4376]-[process:9676] - ----[]
+[2018-04-12 22:03:41,647] - financespider.py [Line:371] - [DEBUG]-[thread:11124]-[process:11780] - ----[]
+[2018-04-12 22:04:05,977] - financespider.py [Line:371] - [INFO]-[thread:8804]-[process:6340] - ----[]
+[2018-04-13 12:59:00,989] - spiders.py [Line:26] - [INFO]-[thread:17228]-[process:3852] - ----[]
+[2018-04-13 12:59:35,953] - spiders.py [Line:26] - [INFO]-[thread:4260]-[process:12308] - ----[]
