@@ -9,7 +9,9 @@ from scrapy import signals
 import random
 from scrapy import signals
 from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware
+from user_agents import agents
 import base64
+import json
 
 class StudySpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -79,8 +81,13 @@ class MyUserAgentMiddleware(UserAgentMiddleware):
         #print "++++++++++++++++++"+agent
         request.headers['User-Agent'] = agent
         #request.headers.setdefault('User-Agent',agent)
+#这是另一种写法 需要在settins中配置方可生效
+class UserAgentMiddleware(object):
+    """ 换User-Agent """
 
-
+    def process_request(self, request, spider):
+        agent = random.choice(agents)
+        request.headers["User-Agent"] = agent
 
 class RandomProxyMiddleware(object):
     '''
@@ -107,3 +114,24 @@ class RandomProxyMiddleware(object):
             base64_userpasswd = base64.b64encode(proxy['user_passwd'])
             request.headers['Proxy-Authorization'] = 'Basic '+base64_userpasswd
             request.meta['proxy']="http://"+proxy['ip_port']
+
+#设置cookies 同样需要在settting配置文件中配置方可生效
+class CookiesMiddleware(object):
+    """ 换Cookie """
+    cookie = {
+        'platform': 'pc',
+        'ss': '367701188698225489',
+        'bs': '%s',
+        'RNLBSERVERID': 'ded6699',
+        'FastPopSessionRequestNumber': '1',
+        'FPSRN': '1',
+        'performance_timing': 'home',
+        'RNKEY': '40859743*68067497:1190152786:3363277230:1'
+    }
+
+    def process_request(self, request, spider):
+        bs = ''
+        for i in range(32):
+            bs += chr(random.randint(97, 122))
+        _cookie = json.dumps(self.cookie) % bs
+        request.cookies = json.loads(_cookie)
