@@ -19,6 +19,7 @@ from zhengjianhuispider.items import CaizhengxinwenspiderItem
 from zhengjianhuispider.items import TonghuashunspiderItem
 from zhengjianhuispider.items import ZhongzhengredianspiderItem
 from zhengjianhuispider.items import JinrongjiespiderItem
+from zhengjianhuispider.items import XiangjiaowangspiderItem
 from zhengjianhuispider.logger import Logger
 from scrapy import Spider,Request
 import json
@@ -472,3 +473,48 @@ class jrjgnSpiders(scrapy.Spider):
         item['source']=sources[1]
         #print('--content{},pubsh_time{},source{}'.format(item['content'],item['pubsh_time'],item['source']))
         return item
+
+
+#中国橡胶网
+class xjwSpiders(scrapy.Spider):
+    def __init__(self):
+        self.count = 0
+    name = "xiangjiaowang"
+    start_urls=[]
+    child_urls=[]
+    #allowed_domains = ["finance.jrj.com.cn"]
+    for page in range(2,10):
+        urls='http://www.cria.org.cn/newslist/'+str(page)+'.html'
+        child_urls.append(urls)
+
+    for child_url in child_urls:
+        for page in range(1,50):
+            second_url=child_url+"?p="+str(page)
+            start_urls.append(second_url)
+    print ('start_urls',start_urls)
+    # log.info('----start_url %s',start_urls)
+    def parse(self, response):
+        response_items = response.xpath('//div[@class="enterprise_news_c p_b20"]/ul/li')
+        if response_items:
+            for response_item in response_items:
+                item = XiangjiaowangspiderItem()
+                url = response_item.xpath('./a/@href').extract_first()
+                str_url ="http://www.cria.org.cn"+url
+                item['title'] = response_item.xpath('./a/text()').extract_first()
+                item['url']=str_url
+                if str_url !=None:
+                    request = scrapy.Request(str_url,callback=self.parse_item)
+                    request.meta['item']=item
+                    yield request
+
+    def parse_item(self, response):
+        item = response.meta['item']
+        content = response.xpath('//div[@class="news_details_c p20"]/p/text()').extract()
+        if content and content[0]!=None:
+            item['content']=content
+        else:
+            item['content'] = response.xpath('//div[@class="news_details_c p20"]/p/span/text()').extract()
+        item['pubsh_time'] = response.xpath('//div[@class="enterprise_news_t"]/span[1]/text()').extract()[0]
+        item['source'] = response.xpath('//div[@class="enterprise_news_t"]/span[2]/text()').extract()[0]
+        #print('--content{},pubsh_time{},source{}'.format(item['content'],item['pubsh_time'],item['source']))
+        yield item

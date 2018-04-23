@@ -74,3 +74,13 @@ class JinrongjiespiderItem(scrapy.Item):
     source = scrapy.Field()
     type =scrapy.Field()
     pubsh_time = scrapy.Field()
+
+#中古橡胶网
+class XiangjiaowangspiderItem(scrapy.Item):
+    url = scrapy.Field()
+    title = scrapy.Field()
+    content = scrapy.Field()
+    describe = scrapy.Field()
+    source = scrapy.Field()
+    type =scrapy.Field()
+    pubsh_time = scrapy.Field()

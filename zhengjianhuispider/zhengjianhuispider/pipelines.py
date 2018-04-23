@@ -18,6 +18,7 @@ from zhengjianhuispider.items import TongjijuspiderItem
 from zhengjianhuispider.items import CaizhengxinwenspiderItem
 from zhengjianhuispider.items import ZhongzhengredianspiderItem
 from zhengjianhuispider.items import JinrongjiespiderItem
+from zhengjianhuispider.items import XiangjiaowangspiderItem
 class ZhengjianhuispiderPipeline(object):
    def __init__(self):
         self.count = 0
@@ -89,4 +90,12 @@ class ZhengjianhuispiderPipeline(object):
          print('+++++insert:+++++' + str(self.count))
          jinrongjie = dict(item)# 把item转化成字典形式
          self.post.insert(jinrongjie) # 向数据库插入一条记录
+        # return item # 会在控制台输出原item数据，可以选择不写
+       elif isinstance(item,XiangjiaowangspiderItem):
+        #存放数据的数据表名
+         self.post = self.tdb[settings['MONGODB_XINAGJIAOWANG_COLLECTION']]  # 获得collection的句柄
+         self.count = self.count + 1
+         print('+++++insert:+++++' + str(self.count))
+         xiangjiaowang = dict(item)# 把item转化成字典形式
+         self.post.insert(xiangjiaowang) # 向数据库插入一条记录
         # return item # 会在控制台输出原item数据，可以选择不写
