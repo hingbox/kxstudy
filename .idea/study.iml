@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/toutiao" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cailianspider" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/kuaixunspider" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/zhengjianhuispider" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 2.7.12 (C:\Python27\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
