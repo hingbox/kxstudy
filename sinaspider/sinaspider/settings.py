@@ -52,9 +52,9 @@ NEWSPIDER_MODULE = 'sinaspider.spiders'
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-   'sinaspider.middlewares.MyCustomDownloaderMiddleware': 543,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#    'sinaspider.middlewares.MyCustomDownloaderMiddleware': 543,
+# }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -67,6 +67,11 @@ DOWNLOADER_MIDDLEWARES = {
 #ITEM_PIPELINES = {
 #    'sinaspider.pipelines.SinaspiderPipeline': 300,
 #}
+
+ITEM_PIPELINES = {
+   #'sinaspider.pipelines.SinaspiderPipeline': 300,
+    'sinaspider.pipelines.MysqldemospiderPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -132,8 +137,9 @@ MY_USER_AGENT = [
 #     {"ip_port":"183.26.235.69:8118","user_passwd":""},
 #    {"ip_port":"122.193.14.110:83","user_passwd":""}
 # ]
-#新浪财经表
-FINANCE_MONGODB_SERVER = "localhost"
-FINANCE_MONGODB_PORT = 27017
-FINANCE_MONGODB_DB = "finance"
-FINANCE_MONGODB_SINAFINANCE_COLLECTION = "sinafinace"
+#新浪新闻
+MYSQL_HOST = "127.0.0.1"
+MYSQL_PORT="3306"
+MYSQL_DBNAME = "finance"
+MYSQL_USER = "root"
+MYSQL_PASSWORD = "root"
